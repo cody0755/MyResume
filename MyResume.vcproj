@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;TIXML_USE_STL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -232,6 +232,34 @@
 			</File>
 			<File
 				RelativePath=".\small.ico"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tinyxml"
+			>
+			<File
+				RelativePath=".\tinyxml\tinystr.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinystr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinyxml.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinyxml.h"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinyxmlerror.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinyxmlparser.cpp"
 				>
 			</File>
 		</Filter>
