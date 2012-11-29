@@ -179,6 +179,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Object.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Slot.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -209,7 +217,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Object.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Slot.h"
 				>
 			</File>
 			<File
