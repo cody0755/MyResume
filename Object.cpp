@@ -41,6 +41,7 @@ void Object::disconnect(UINT32 signal)
 	{
 		if (iter->first == signal)
 		{
+			delete iter->second;
 			active_signal_set.erase(iter);
 			return;
 		}
