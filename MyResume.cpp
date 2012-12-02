@@ -38,7 +38,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	HANDLE current_thread = GetCurrentThread();
 	// 主消息循环:
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
