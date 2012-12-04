@@ -1,12 +1,15 @@
 #ifndef MYRESUME_OBJECT_H
 #define MYRESUME_OBJECT_H
 #include <list>
+#include <vector>
 #include <utility>
 #include "Slot.h"
 
 using std::list;
+using std::vector;
 using std::pair;
 
+class Slot;
 class Event;
 typedef list<pair<UINT32, Slot*> > SignalSet;
 class Object

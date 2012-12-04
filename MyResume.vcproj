@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Painter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Slot.cpp"
 				>
 			</File>
@@ -206,6 +210,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\View.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -221,6 +229,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Painter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
@@ -230,6 +242,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\View.h"
 				>
 			</File>
 		</Filter>
