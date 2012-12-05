@@ -10,6 +10,7 @@
 HINSTANCE hInst;								// 当前实例
 TCHAR szTitle[MAX_LOADSTRING];					// 标题栏文本
 TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
+HWND handle_main_window = NULL;
 
 // 此代码模块中包含的函数的前向声明:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -95,22 +96,20 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   HWND hWnd;
-
    hInst = hInstance; // 将实例句柄存储在全局变量中
 
    int cx = GetSystemMetrics(SM_CXSCREEN);
    int cy = GetSystemMetrics(SM_CYSCREEN);
-   hWnd = CreateWindow(szWindowClass, szTitle, WS_POPUP | WS_VISIBLE,
+   handle_main_window = CreateWindow(szWindowClass, szTitle, WS_POPUP | WS_VISIBLE,
       0, 0, cx, cy, NULL, NULL, hInstance, NULL);
 
-   if (!hWnd)
+   if (!handle_main_window)
    {
       return FALSE;
    }
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+   ShowWindow(handle_main_window, nCmdShow);
+   UpdateWindow(handle_main_window);
 
    return TRUE;
 }
@@ -144,9 +143,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		// TODO: 在此添加任意绘图代码...
-		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

@@ -20,7 +20,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -175,6 +175,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\DCPainter_Impl.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MyResume.cpp"
 				>
 			</File>
@@ -184,6 +188,10 @@
 			</File>
 			<File
 				RelativePath=".\Painter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Painter_Impl.cpp"
 				>
 			</File>
 			<File
@@ -221,6 +229,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\DCPainter_Impl.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MyResume.h"
 				>
 			</File>
@@ -230,6 +242,10 @@
 			</File>
 			<File
 				RelativePath=".\Painter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Painter_Impl.h"
 				>
 			</File>
 			<File

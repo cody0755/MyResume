@@ -3,11 +3,10 @@
 #include <list>
 #include <vector>
 #include <utility>
+#include <string>
 #include "Slot.h"
 
-using std::list;
-using std::vector;
-using std::pair;
+using namespace std;
 
 class Slot;
 class Event;
