@@ -1,5 +1,7 @@
 #include "StdAfx.h"
 #include "View.h"
+#include "DirtyRectManager.h"
+#include "Painter.h"
 
 View::View(View *p)
 : parent(p)
@@ -7,6 +9,7 @@ View::View(View *p)
 , y(0)
 , cx(0)
 , cy(0)
+,bgrd_clr(0)
 {}
 
 View::~View(void)
@@ -67,6 +70,8 @@ void View::set_x(short rhs)
 	{
 		return;
 	}
+	x = rhs;
+	invalidate();
 	short diff = rhs - x;
 	View *v;
 	for (size_t i=0; i<childs.size(); ++i)
@@ -85,6 +90,8 @@ void View::set_y(short rhs)
 	{
 		return;
 	}
+	y = rhs;
+	invalidate();
 	short diff = rhs - y;
 	View *v;
 	for (size_t i=0; i<childs.size(); ++i)
@@ -104,6 +111,7 @@ void View::set_width(short rhs)
 		return;
 	}
 	cx = rhs;
+	invalidate();
 }
 
 void View::set_height(short rhs)
@@ -113,6 +121,7 @@ void View::set_height(short rhs)
 		return;
 	}
 	cy = rhs;
+	invalidate();
 }
 
 void View::set_rect(const RECT& rt)
@@ -121,6 +130,7 @@ void View::set_rect(const RECT& rt)
 	set_y((short)rt.top);
 	set_width((short)(rt.right - rt.left));
 	set_height((short)(rt.bottom - rt.top));
+	invalidate();
 }
 
 short View::get_relative_x() const
@@ -139,6 +149,13 @@ short View::get_relative_y() const
 		return y;
 	}
 	return y - parent->y;
+}
+
+RECT View::get_relative_rect() const
+{
+	RECT rt = {get_relative_x(), get_relative_y(),
+	get_relative_x() + cx, get_relative_y() + cy};
+	return rt;
 }
 
 void View::set_relative_x(short rhs)
@@ -161,9 +178,32 @@ void View::set_relative_y(short rhs)
 	set_y(parent->y + rhs);
 }
 
+void View::set_relative_rect(const RECT& rt)
+{
+	set_relative_x((short)rt.left);
+	set_relative_y((short)rt.top);
+	set_width((short)(rt.right - rt.left));
+	set_height((short)(rt.bottom - rt.top));
+	invalidate();
+}
+
 void View::draw(Painter &painter)
 {
-
+	if (!DirtyRectManager::instance().is_intersecting(get_rect()))
+	{
+		return;
+	}
+	painter.draw_color(bgrd_clr, get_rect());
+	
+	View *v;
+	for (size_t i=0; i<childs.size(); ++i)
+	{
+		v = childs[i];
+		if (v)
+		{
+			v->draw(painter);
+		}
+	}
 }
 
 void View::push_child(ChildViews::iterator pos, View *v)
@@ -174,4 +214,9 @@ void View::push_child(ChildViews::iterator pos, View *v)
 void View::pop_child(ChildViews::iterator pos)
 {
 	childs.erase(pos);
+}
+
+void View::invalidate() const
+{
+	DirtyRectManager::instance().union_rect(get_rect());
 }

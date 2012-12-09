@@ -28,12 +28,15 @@ public:
 	//再提供一套设置View相对于父View的坐标的接口
 	short get_relative_x() const;
 	short get_relative_y() const;
+	RECT get_relative_rect() const;
 	void set_relative_x(short rhs);
 	void set_relative_y(short rhs);
+	void set_relative_rect(const RECT& rt);
 
 	virtual void draw(Painter &painter);
 	virtual void push_child(ChildViews::iterator pos, View *v);
 	virtual void pop_child(ChildViews::iterator pos);
+	virtual void invalidate() const;
 
 protected:
 	ChildViews childs;
@@ -44,6 +47,8 @@ protected:
 	short y;
 	short cx;
 	short cy;
+
+	COLORREF bgrd_clr;
 };
 
 #endif
