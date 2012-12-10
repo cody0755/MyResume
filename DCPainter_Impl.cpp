@@ -6,6 +6,8 @@ DCPainter_Impl::DCPainter_Impl(void)
 : memory_dc(NULL)
 , window_dc(NULL)
 , memory_bitmap(NULL)
+, window_width(0)
+, window_height(0)
 {
 }
 
@@ -18,6 +20,15 @@ bool DCPainter_Impl::init()
 {
 	release();
 
+	RECT window_rect = {0};
+	GetWindowRect(handle_main_window, &window_rect);
+	window_width = window_rect.right - window_rect.left;
+	window_height = window_rect.bottom - window_rect.top;
+	if (window_width <= 0
+		|| window_height <= 0)
+	{
+		return false;
+	}
 	window_dc = GetDC(handle_main_window);
 	if (window_dc == NULL)
 	{
@@ -30,9 +41,7 @@ bool DCPainter_Impl::init()
 		window_dc = NULL;
 		return false;
 	}
-	memory_bitmap = CreateCompatibleBitmap(window_dc,
-		GetSystemMetrics(SM_CXSCREEN),
-		GetSystemMetrics(SM_CYSCREEN));
+	memory_bitmap = CreateCompatibleBitmap(window_dc, window_width, window_height);
 	if (memory_bitmap == NULL)
 	{
 		ReleaseDC(handle_main_window, window_dc);
@@ -85,12 +94,14 @@ void DCPainter_Impl::draw_color(COLORREF clr, const RECT& rt)
 void DCPainter_Impl::update()
 {
 	if (!memory_dc
-		|| !window_dc)
+		|| !window_dc
+		|| window_width <= 0
+		|| window_height <= 0)
 	{
 		return;
 	}
-	BitBlt(window_dc, 0, 0, GetSystemMetrics(SM_CXSCREEN),
-		GetSystemMetrics(SM_CYSCREEN), memory_dc, 0, 0, SRCCOPY);
+	BitBlt(window_dc, 0, 0, window_width,
+		window_height, memory_dc, 0, 0, SRCCOPY);
 }
 
 void DCPainter_Impl::release()

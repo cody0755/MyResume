@@ -3,6 +3,7 @@
 
 #include "object.h"
 class View;
+class Painter;
 class Activity : public Object
 {
 public:
@@ -13,9 +14,17 @@ public:
 	virtual void on_show() = 0;
 	virtual void on_hide() = 0;
 	virtual void on_destroy() = 0;
+	void mouse_down(const POINT& pt);
+	void mouse_up(const POINT& pt);
+	virtual bool on_mouse_down(const POINT& pt);
+	virtual bool on_mouse_up(const POINT& pt);
+
+	void push(Activity *);
+	void pop();
 
 	void set_view(const View *v);
 	View* get_view() const;
+	void draw_view(Painter& painter);
 
 protected:
 	View *view;

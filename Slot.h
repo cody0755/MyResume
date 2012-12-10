@@ -3,7 +3,7 @@
 
 class Object;
 class Event;
-typedef void (Object::*SLOT_FUNC)(const Event&);
+typedef bool (Object::*SLOT_FUNC)(const Event&);
 class Slot
 {
 public:
@@ -11,7 +11,7 @@ public:
 	~Slot(void);
 
 	void set(Object *, SLOT_FUNC);
-	void fire(const Event&);
+	bool fire(const Event&);
 
 private:
 	Object *host;

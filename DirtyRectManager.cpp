@@ -60,6 +60,11 @@ bool DirtyRectManager::is_intersecting(const RECT& rhs) const
 		&& dirty_rect.top <= rhs.bottom);
 }
 
+bool DirtyRectManager::is_none() const
+{
+	return !valid_rect(dirty_rect);
+}
+
 bool DirtyRectManager::valid_rect(const RECT& rhs) const
 {
 	return (rhs.bottom - rhs.top > 0

@@ -19,6 +19,8 @@ private:
 	HDC memory_dc;
 	HDC window_dc;
 	HBITMAP memory_bitmap;
+	int window_width;
+	int window_height;
 };
 
 #endif

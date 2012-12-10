@@ -187,6 +187,37 @@ void View::set_relative_rect(const RECT& rt)
 	invalidate();
 }
 
+bool View::hit_test(const POINT& pt) const
+{
+	return (x <= pt.x && (x + cx) >= pt.x
+		&& y <= pt.y && (y + cy) >= pt.y);
+}
+
+bool View::on_mouse_down(const POINT& pt)
+{
+	if (!hit_test(pt))
+	{
+		return false;
+	}
+	
+	View *v;
+	for (size_t i=0; i<childs.size(); ++i)
+	{
+		v = childs[i];
+		if (v->on_mouse_down(pt))
+		{
+			return true;
+		}
+	}
+	
+	return fire_signal();
+}
+
+bool View::on_mouse_up(const POINT& pt)
+{
+	return false;
+}
+
 void View::draw(Painter &painter)
 {
 	if (!DirtyRectManager::instance().is_intersecting(get_rect()))

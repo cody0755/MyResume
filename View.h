@@ -33,6 +33,10 @@ public:
 	void set_relative_y(short rhs);
 	void set_relative_rect(const RECT& rt);
 
+	bool hit_test(const POINT& pt) const;
+	virtual bool on_mouse_down(const POINT& pt);
+	virtual bool on_mouse_up(const POINT& pt);
+
 	virtual void draw(Painter &painter);
 	virtual void push_child(ChildViews::iterator pos, View *v);
 	virtual void pop_child(ChildViews::iterator pos);

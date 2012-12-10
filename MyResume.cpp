@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "MyResume.h"
+#include "WinOSAdapter.h"
 
 #define MAX_LOADSTRING 100
 
@@ -38,6 +39,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
+
+	SetTimer(handle_main_window, 1, 30, NULL);
 
 	// 主消息循环:
 	while (GetMessage(&msg, NULL, 0, 0))
@@ -142,6 +145,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
 		break;
+	case WM_TIMER:
+		WinOSAdapter::instance().on_event(message, wParam, lParam);
 	case WM_PAINT:
 		break;
 	case WM_DESTROY:

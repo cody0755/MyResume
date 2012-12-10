@@ -48,7 +48,7 @@ void Object::disconnect(UINT32 signal)
 	}
 }
 
-void Object::fire_signal(UINT32 signal, const Event& event)
+bool Object::fire_signal(UINT32 signal, const Event& event)
 {
 	SignalSet::iterator iter = active_signal_set.begin();
 	SignalSet::iterator iter_end = active_signal_set.end();
@@ -56,8 +56,8 @@ void Object::fire_signal(UINT32 signal, const Event& event)
 	{
 		if (iter->first == signal)
 		{
-			 iter->second->fire(event);
-			return;
+			 return iter->second->fire(event);
 		}
 	}
+	return false;
 }

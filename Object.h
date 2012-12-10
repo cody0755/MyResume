@@ -19,7 +19,7 @@ public:
 
 	void connect(UINT32, Object *, SLOT_FUNC);
 	void disconnect(UINT32);
-	void fire_signal(UINT32, const Event&);
+	bool fire_signal(UINT32, const Event&);
 
 protected:
 	SignalSet active_signal_set;

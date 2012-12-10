@@ -11,6 +11,7 @@ public:
 	operator RECT() const;
 	operator const RECT&() const;
 	bool is_intersecting(const RECT& rhs) const;
+	bool is_none() const;
 
 private:
 	DirtyRectManager(void);

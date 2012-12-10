@@ -23,7 +23,7 @@ void Slot::set(Object *obj, SLOT_FUNC func)
 	}
 }
 
-void Slot::fire(const Event& e)
+bool Slot::fire(const Event& e)
 {
-	(host->*function)(e);
+	return (host->*function)(e);
 }
