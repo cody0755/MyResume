@@ -104,6 +104,11 @@ void DCPainter_Impl::update()
 		window_height, memory_dc, 0, 0, SRCCOPY);
 }
 
+void DCPainter_Impl::invalidate(const RECT& rt)
+{
+	InvalidateRect(handle_main_window, &rt, FALSE);
+}
+
 void DCPainter_Impl::release()
 {
 	if (memory_bitmap)

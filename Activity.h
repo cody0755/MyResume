@@ -10,10 +10,10 @@ public:
 	Activity(int r_id = 0);
 	virtual ~Activity(void);
 
-	virtual void on_create() = 0;
-	virtual void on_show() = 0;
-	virtual void on_hide() = 0;
-	virtual void on_destroy() = 0;
+	//virtual void on_create() = 0;
+	//virtual void on_show() = 0;
+	//virtual void on_hide() = 0;
+	//virtual void on_destroy() = 0;
 	void mouse_down(const POINT& pt);
 	void mouse_up(const POINT& pt);
 	virtual bool on_mouse_down(const POINT& pt);

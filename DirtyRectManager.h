@@ -8,8 +8,7 @@ public:
 	static DirtyRectManager& instance();
 	void union_rect(const RECT& rhs);
 	void clear();
-	operator RECT() const;
-	operator const RECT&() const;
+	const RECT& get_rect() const;
 	bool is_intersecting(const RECT& rhs) const;
 	bool is_none() const;
 

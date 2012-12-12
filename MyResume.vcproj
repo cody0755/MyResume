@@ -191,6 +191,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Event.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MyResume.cpp"
 				>
 			</File>
@@ -261,6 +265,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Event.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MyResume.h"
 				>
 			</File>
@@ -278,6 +286,10 @@
 			</File>
 			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SignalId.h"
 				>
 			</File>
 			<File

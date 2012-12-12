@@ -35,3 +35,8 @@ void Painter::update()
 {
 	impl->update();
 }
+
+void Painter::invalidate(const RECT& rt)
+{
+	impl->invalidate(rt);
+}

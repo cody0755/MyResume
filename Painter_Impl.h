@@ -13,6 +13,7 @@ public:
 	virtual void draw_rect(const RECT&) = 0;
 	virtual void draw_color(COLORREF, const RECT&) = 0;
 	virtual void update() = 0;
+	virtual void invalidate(const RECT&) = 0;
 };
 
 #endif

@@ -2,18 +2,34 @@
 #define MYRESUME_VIEW_H
 
 #include "Object.h"
+#include <map>
+#include "SignalId.h"
 
 class Painter;
 class View;
 typedef vector<View*> ChildViews;
+typedef map<unsigned long, COLORREF> StatusColorMap;
 class View : public Object
 {
 public:
-	View(View *parent);
+	enum
+	{
+		status_enable = 1,
+		status_disable = 0,
+		status_pressed = 2,
+		status_count
+	};
+	View(View *parent = NULL);
 	virtual ~View(void);
 
 	void set_parent(View *);
 	View* get_parent() const;
+
+	bool is_enable() const;
+	void set_enable(bool enable);
+	bool is_pressed() const;
+	void set_pressed(bool pressed);
+	void set_background_clr(unsigned long, COLORREF);
 	//获得或设置View的绝对坐标（以窗口左上为原点）
 	short get_x() const;
 	short get_y() const;
@@ -38,7 +54,7 @@ public:
 	virtual bool on_mouse_up(const POINT& pt);
 
 	virtual void draw(Painter &painter);
-	virtual void push_child(ChildViews::iterator pos, View *v);
+	virtual void push_child(View *v);
 	virtual void pop_child(ChildViews::iterator pos);
 	virtual void invalidate() const;
 
@@ -52,7 +68,8 @@ protected:
 	short cx;
 	short cy;
 
-	COLORREF bgrd_clr;
+	unsigned long status;
+	StatusColorMap bg_clrs;
 };
 
 #endif

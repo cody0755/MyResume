@@ -68,11 +68,12 @@ void WinOSAdapter::request_update()
 		return;
 	}
 	Painter_Impl *impl = new DCPainter_Impl();
-	if (!impl)
+	if (!impl || !impl->init())
 	{
 		return;
 	}
 	Painter painter(impl);
+	painter.invalidate(DirtyRectManager::instance().get_rect());
 
 	RECT window_rect = {0};
 	GetWindowRect(handle_main_window, &window_rect);
@@ -87,4 +88,8 @@ void WinOSAdapter::request_update()
 	{
 		a->draw_view(painter);
 	}
+
+	painter.update();
+
+	DirtyRectManager::instance().clear();
 }

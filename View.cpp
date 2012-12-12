@@ -2,6 +2,7 @@
 #include "View.h"
 #include "DirtyRectManager.h"
 #include "Painter.h"
+#include "Event.h"
 
 View::View(View *p)
 : parent(p)
@@ -9,8 +10,12 @@ View::View(View *p)
 , y(0)
 , cx(0)
 , cy(0)
-,bgrd_clr(0)
-{}
+, status(status_disable)
+{
+	bg_clrs[status_disable] = 0;
+	bg_clrs[status_enable] = 0;
+	bg_clrs[status_pressed] = 0;
+}
 
 View::~View(void)
 {
@@ -36,6 +41,45 @@ void View::set_parent(View *p)
 View* View::get_parent() const
 {
 	return parent;
+}
+
+bool View::is_enable() const
+{
+	return status != status_disable;
+}
+
+void View::set_enable(bool enable)
+{
+	if (is_enable() == enable)
+	{
+		return;
+	}
+	if (!enable)
+	{
+		status = status_disable;
+	}
+	status |= status_enable;
+	invalidate();
+}
+
+bool View::is_pressed() const
+{
+	return is_enable() && (status & status_pressed);
+}
+
+void View::set_pressed(bool pressed)
+{
+	if (is_pressed() == pressed)
+	{
+		return;
+	}
+	status |= status_pressed;
+	invalidate();
+}
+
+void View::set_background_clr(unsigned long s, COLORREF clr)
+{
+	bg_clrs[s] = clr;
 }
 
 short View::get_x() const
@@ -195,7 +239,8 @@ bool View::hit_test(const POINT& pt) const
 
 bool View::on_mouse_down(const POINT& pt)
 {
-	if (!hit_test(pt))
+	if (!hit_test(pt)
+		|| !is_enable())
 	{
 		return false;
 	}
@@ -210,12 +255,32 @@ bool View::on_mouse_down(const POINT& pt)
 		}
 	}
 	
-	return fire_signal();
+	set_pressed(true);
+	MouseEvent event(pt, this);
+	return fire_signal(SignalId::press_down_signal, event);
 }
 
 bool View::on_mouse_up(const POINT& pt)
 {
-	return false;
+	if (!hit_test(pt)
+		|| !is_pressed())
+	{
+		return false;
+	}
+	
+	View *v;
+	for (size_t i=0; i<childs.size(); ++i)
+	{
+		v = childs[i];
+		if (v->on_mouse_up(pt))
+		{
+			return true;
+		}
+	}
+
+	set_pressed(false);
+	MouseEvent event(pt, this);
+	return fire_signal(SignalId::click_signal, event);
 }
 
 void View::draw(Painter &painter)
@@ -224,7 +289,11 @@ void View::draw(Painter &painter)
 	{
 		return;
 	}
-	painter.draw_color(bgrd_clr, get_rect());
+	StatusColorMap::iterator iter = bg_clrs.find(status);
+	if (iter != bg_clrs.end())
+	{
+		painter.draw_color(iter->second, get_rect());
+	}
 	
 	View *v;
 	for (size_t i=0; i<childs.size(); ++i)
@@ -237,9 +306,9 @@ void View::draw(Painter &painter)
 	}
 }
 
-void View::push_child(ChildViews::iterator pos, View *v)
+void View::push_child(View *v)
 {
-	childs.insert(pos, 1, v);
+	childs.push_back(v);
 }
 
 void View::pop_child(ChildViews::iterator pos)

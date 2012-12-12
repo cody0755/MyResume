@@ -15,6 +15,7 @@ public:
 	virtual void draw_rect(const RECT&);
 	virtual void draw_color(COLORREF, const RECT&);
 	virtual void update();
+	virtual void invalidate(const RECT&);
 
 protected:
 	Painter_Impl *impl;

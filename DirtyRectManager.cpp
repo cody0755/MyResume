@@ -37,12 +37,7 @@ void DirtyRectManager::clear()
 	memset(&dirty_rect, 0, sizeof(dirty_rect));
 }
 
-DirtyRectManager::operator RECT() const
-{
-	return dirty_rect;
-}
-
-DirtyRectManager::operator const RECT &() const
+const RECT& DirtyRectManager::get_rect() const
 {
 	return dirty_rect;
 }
