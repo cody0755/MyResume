@@ -12,6 +12,7 @@ public:
 	void on_mouse_event(UINT msg, WPARAM wParam, LPARAM lParam);
 	void on_timer_event(UINT msg, WPARAM wParam, LPARAM lParam);
 	void request_update();
+	void startup();
 
 private:
 	WinOSAdapter(void);

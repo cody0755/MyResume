@@ -11,6 +11,7 @@ ActivityManager::~ActivityManager(void)
 	ActivityContainer::iterator iter = activities.begin();
 	for (; iter != activities.end(); ++iter)
 	{
+		(*iter)->on_destroy();
 		delete *iter;
 	}
 }
@@ -28,6 +29,8 @@ void ActivityManager::push(Activity *rhs)
 		return;
 	}
 	activities.push_back(rhs);
+
+	rhs->on_create();
 }
 
 void ActivityManager::pop()
@@ -37,8 +40,10 @@ void ActivityManager::pop()
 		return;
 	}
 	Activity *a = activities.back();
-	delete a;
 	activities.pop_back();
+
+	a->on_destroy();
+	delete a;
 }
 
 Activity* ActivityManager::top() const

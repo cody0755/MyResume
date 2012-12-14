@@ -5,11 +5,11 @@
 #include <utility>
 #include <string>
 #include "Slot.h"
+#include "Event.h"
 
 using namespace std;
 
 class Slot;
-class Event;
 typedef list<pair<UINT32, Slot*> > SignalSet;
 class Object
 {

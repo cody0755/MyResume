@@ -6,6 +6,7 @@
 #include "Painter_Impl.h"
 #include "Painter.h"
 #include "ActivityManager.h"
+#include "CoverActivity.h"
 
 extern HWND handle_main_window;
 
@@ -92,4 +93,14 @@ void WinOSAdapter::request_update()
 	painter.update();
 
 	DirtyRectManager::instance().clear();
+}
+
+void WinOSAdapter::startup()
+{
+	Activity *first_activity = new CoverActivity();
+	if (!first_activity)
+	{
+		return;
+	}
+	ActivityManager::instance().push(first_activity);
 }

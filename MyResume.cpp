@@ -41,8 +41,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	extern void test();
-	test();
+	WinOSAdapter::instance().startup();
 
 	SetTimer(handle_main_window, 1, 30, NULL);
 
@@ -133,22 +132,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	int wmId, wmEvent;
-	PAINTSTRUCT ps;
-	HDC hdc;
-
 	switch (message)
 	{
-	case WM_COMMAND:
-		wmId    = LOWORD(wParam);
-		wmEvent = HIWORD(wParam);
-		// ·ÖÎö²Ëµ¥Ñ¡Ôñ:
-		switch (wmId)
+	case WM_LBUTTONDOWN:
+	case WM_LBUTTONUP:
 		{
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
+			WinOSAdapter::instance().on_event(message, wParam, lParam);
+			break;
 		}
-		break;
 	case WM_TIMER:
 		WinOSAdapter::instance().on_event(message, wParam, lParam);
 	case WM_PAINT:
@@ -157,7 +148,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				GetSystemMetrics(SM_CXSCREEN),
 				GetSystemMetrics(SM_CYSCREEN)};
 			DirtyRectManager::instance().union_rect(rt);
-			WinOSAdapter::instance().on_event(0, 0, 0);
+			WinOSAdapter::instance().request_update();
 		}
 		break;
 	case WM_DESTROY:
@@ -167,31 +158,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
-}
-
-#include "ActivityManager.h"
-#include "View.h"
-#include "Activity.h"
-void test()
-{
-	View *root = new View();
-	RECT rt = {0, 0, 
-		GetSystemMetrics(SM_CXSCREEN),
-		GetSystemMetrics(SM_CYSCREEN)};
-	root->set_rect(rt);
-	Activity *a = new Activity();
-	a->set_view(root);
-	View *v1 = new View(root);
-	RECT rt1 = {100, 100, 400, 400};
-	v1->set_rect(rt1);
-	v1->set_background_clr(View::status_disable, RGB(255,0,0));
-	root->push_child(v1);
-	View *v2 = new View(v1);
-	RECT rt2 = {200, 200, 300, 300};
-	v2->set_rect(rt2);
-	v2->set_enable(true);
-	v2->set_background_clr(View::status_enable, RGB(128,128,128));
-	v1->push_child(v2);
-	ActivityManager::instance().push(a);
-	
 }

@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 #include "Activity.h"
-#include "View.h"
 #include "Painter.h"
 #include "ActivityManager.h"
 

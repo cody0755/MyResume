@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 #include "View.h"
-#include "DirtyRectManager.h"
 #include "Painter.h"
 #include "Event.h"
 
@@ -11,11 +10,7 @@ View::View(View *p)
 , cx(0)
 , cy(0)
 , status(status_disable)
-{
-	bg_clrs[status_disable] = 0;
-	bg_clrs[status_enable] = 0;
-	bg_clrs[status_pressed] = 0;
-}
+{}
 
 View::~View(void)
 {
@@ -73,13 +68,37 @@ void View::set_pressed(bool pressed)
 	{
 		return;
 	}
-	status |= status_pressed;
+	if (pressed)
+	{
+		status |= status_pressed;
+	} 
+	else
+	{
+		status &= ~status_pressed;
+	}
 	invalidate();
 }
 
 void View::set_background_clr(unsigned long s, COLORREF clr)
 {
 	bg_clrs[s] = clr;
+	invalidate();
+}
+
+const StatusColorMap& View::get_background_clr() const
+{
+	return bg_clrs;
+}
+
+bool View::get_background_clr(unsigned long s, COLORREF& c) const
+{
+	StatusColorMap::const_iterator iter = bg_clrs.find(s);
+	if (iter != bg_clrs.end())
+	{
+		c = iter->second;
+		return true;
+	}
+	return false;
 }
 
 short View::get_x() const
@@ -289,7 +308,8 @@ void View::draw(Painter &painter)
 	{
 		return;
 	}
-	StatusColorMap::iterator iter = bg_clrs.find(status);
+
+	StatusColorMap::iterator iter = bg_clrs.find(get_current_status());
 	if (iter != bg_clrs.end())
 	{
 		painter.draw_color(iter->second, get_rect());
@@ -319,4 +339,18 @@ void View::pop_child(ChildViews::iterator pos)
 void View::invalidate() const
 {
 	DirtyRectManager::instance().union_rect(get_rect());
+}
+
+unsigned long View::get_current_status() const
+{
+	unsigned long status_mask = status_enable;
+	if (is_pressed())
+	{
+		status_mask = status_pressed;
+	}
+	else if (!is_enable())
+	{
+		status_mask = status_disable;
+	}
+	return status_mask;
 }

@@ -4,6 +4,7 @@
 #include "Object.h"
 #include <map>
 #include "SignalId.h"
+#include "DirtyRectManager.h"
 
 class Painter;
 class View;
@@ -30,6 +31,8 @@ public:
 	bool is_pressed() const;
 	void set_pressed(bool pressed);
 	void set_background_clr(unsigned long, COLORREF);
+	const StatusColorMap& get_background_clr() const;
+	bool get_background_clr(unsigned long, COLORREF&) const;
 	//获得或设置View的绝对坐标（以窗口左上为原点）
 	short get_x() const;
 	short get_y() const;
@@ -57,6 +60,9 @@ public:
 	virtual void push_child(View *v);
 	virtual void pop_child(ChildViews::iterator pos);
 	virtual void invalidate() const;
+
+protected:
+	unsigned long get_current_status() const;
 
 protected:
 	ChildViews childs;

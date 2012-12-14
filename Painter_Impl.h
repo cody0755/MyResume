@@ -2,6 +2,7 @@
 #define PAINTER_IMPL_H
 
 #include "Object.h"
+class Font;
 class Painter_Impl : public Object
 {
 public:
@@ -9,7 +10,7 @@ public:
 	virtual ~Painter_Impl(void);
 
 	virtual bool init() = 0;
-	virtual void draw_text(const string&, const POINT&) = 0;
+	virtual void draw_text(const string&, const POINT&, const Font&, COLORREF) = 0;
 	virtual void draw_rect(const RECT&) = 0;
 	virtual void draw_color(COLORREF, const RECT&) = 0;
 	virtual void update() = 0;

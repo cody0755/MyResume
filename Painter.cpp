@@ -16,9 +16,9 @@ Painter::~Painter(void)
 	}
 }
 
-void Painter::draw_text(const string& text, const POINT& origin)
+void Painter::draw_text(const string& text, const POINT& origin, const Font& font, COLORREF clr)
 {
-	impl->draw_text(text, origin);
+	impl->draw_text(text, origin, font, clr);
 }
 
 void Painter::draw_rect(const RECT& rt)

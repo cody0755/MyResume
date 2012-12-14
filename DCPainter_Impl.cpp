@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "DCPainter_Impl.h"
+#include "Font.h"
 
 extern HWND handle_main_window;
 DCPainter_Impl::DCPainter_Impl(void)
@@ -54,14 +55,19 @@ bool DCPainter_Impl::init()
 	return true;
 }
 
-void DCPainter_Impl::draw_text(const string& text, const POINT& origin)
+void DCPainter_Impl::draw_text(const string& text, const POINT& origin, const Font& font, COLORREF clr)
 {
 	if (text.empty()
-		|| !memory_dc)
+		|| !memory_dc
+		|| !font.valid())
 	{
 		return;
 	}
-	TextOut(memory_dc, origin.x, origin.y, text.c_str(), text.size());
+	SetBkMode(memory_dc, TRANSPARENT);
+	SetTextColor(memory_dc, clr);
+	HFONT old_font = (HFONT)SelectObject(memory_dc, (*(WinFont*)&font));
+	TextOut(memory_dc, origin.x, origin.y, text.c_str(), (int)text.size());
+	SelectObject(memory_dc, old_font);
 }
 
 void DCPainter_Impl::draw_rect(const RECT& rt)
