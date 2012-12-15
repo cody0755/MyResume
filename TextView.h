@@ -19,6 +19,9 @@ public:
 	const StatusColorMap& get_text_clr() const;
 	bool get_text_clr(unsigned long, COLORREF&) const;
 private:
+	SIZE get_text_size() const;
+	POINT get_text_origin() const;
+private:
 	string text;
 	Font *font;
 	StatusColorMap text_clrs;

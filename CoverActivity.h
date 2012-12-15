@@ -2,6 +2,7 @@
 #define MYRESUME_COVERACTIVITY_H
 
 #include "activity.h"
+#include "AlarmClock.h"
 
 class CoverActivity : public Activity
 {
@@ -14,8 +15,10 @@ private:
 	void on_destroy();
 
 	bool on_root_view_clicked(const Event& e);
+	bool on_time_out(const Event& e);
 
 	View *root_view;
+	AlarmClock alarm;
 };
 
 #endif

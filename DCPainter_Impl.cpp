@@ -17,9 +17,17 @@ DCPainter_Impl::~DCPainter_Impl(void)
 	release();
 }
 
+bool DCPainter_Impl::valid() const
+{
+	return memory_dc && window_dc && memory_bitmap;
+}
+
 bool DCPainter_Impl::init()
 {
-	release();
+	if (valid())
+	{
+		return true;
+	}
 
 	RECT window_rect = {0};
 	GetWindowRect(handle_main_window, &window_rect);
@@ -95,6 +103,7 @@ void DCPainter_Impl::draw_color(COLORREF clr, const RECT& rt)
 		return;
 	}
 	FillRect(memory_dc, &rt, brush);
+	DeleteObject(brush);
 }
 
 void DCPainter_Impl::update()

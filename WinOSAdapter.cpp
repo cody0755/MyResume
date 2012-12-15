@@ -7,11 +7,16 @@
 #include "Painter.h"
 #include "ActivityManager.h"
 #include "CoverActivity.h"
+#include "AlarmClockManager.h"
 
 extern HWND handle_main_window;
 
 WinOSAdapter::WinOSAdapter(void)
+: painter(NULL)
+, painter_impl(NULL)
 {
+	window_size.cx = GetSystemMetrics(SM_CXSCREEN);
+	window_size.cy = GetSystemMetrics(SM_CYSCREEN);
 }
 
 WinOSAdapter::~WinOSAdapter(void)
@@ -59,7 +64,7 @@ void WinOSAdapter::on_mouse_event(UINT msg, WPARAM wParam, LPARAM lParam)
 
 void WinOSAdapter::on_timer_event(UINT msg, WPARAM wParam, LPARAM lParam)
 {
-
+	AlarmClockManager::instance().tick(get_tick_count());
 }
 
 void WinOSAdapter::request_update()
@@ -68,17 +73,31 @@ void WinOSAdapter::request_update()
 	{
 		return;
 	}
-	Painter_Impl *impl = new DCPainter_Impl();
-	if (!impl || !impl->init())
+	if (!painter_impl)
+	{
+		painter_impl = new DCPainter_Impl();
+		if (!painter_impl || !painter_impl->init())
+		{
+			return;
+		}
+	}
+	if (!painter_impl->valid() && !painter_impl->init())
 	{
 		return;
 	}
-	Painter painter(impl);
-	painter.invalidate(DirtyRectManager::instance().get_rect());
+	if (!painter)
+	{
+		painter = new Painter(painter_impl);
+	}
+	if (!painter)
+	{
+		return;
+	}
+	painter->invalidate(DirtyRectManager::instance().get_rect());
 
 	RECT window_rect = {0};
 	GetWindowRect(handle_main_window, &window_rect);
-	painter.draw_color(0, window_rect);
+	painter->draw_color(0, window_rect);
 	if (ActivityManager::instance().empty())
 	{
 		DirtyRectManager::instance().clear();
@@ -87,10 +106,10 @@ void WinOSAdapter::request_update()
 	Activity *a = ActivityManager::instance().top();
 	if (a)
 	{
-		a->draw_view(painter);
+		a->draw_view(*painter);
 	}
 
-	painter.update();
+	painter->update();
 
 	DirtyRectManager::instance().clear();
 }
@@ -103,4 +122,14 @@ void WinOSAdapter::startup()
 		return;
 	}
 	ActivityManager::instance().push(first_activity);
+}
+
+SIZE WinOSAdapter::get_window_size()
+{
+	return window_size;
+}
+
+int WinOSAdapter::get_tick_count()
+{
+	return GetTickCount();
 }

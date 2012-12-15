@@ -6,5 +6,6 @@ enum SignalId
 	press_down_signal,
 	press_up_signal,
 	click_signal,
+	timer_timeout_signal
 };
 #endif

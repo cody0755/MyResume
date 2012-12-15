@@ -41,9 +41,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	WinOSAdapter::instance().startup();
+	SetTimer(handle_main_window, 1, 4000, NULL);
 
-	SetTimer(handle_main_window, 1, 30, NULL);
+	WinOSAdapter::instance().startup();
 
 	// 主消息循环:
 	while (GetMessage(&msg, NULL, 0, 0))
@@ -104,10 +104,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 将实例句柄存储在全局变量中
 
-   int cx = GetSystemMetrics(SM_CXSCREEN);
-   int cy = GetSystemMetrics(SM_CYSCREEN);
+   SIZE window_size = WinOSAdapter::instance().get_window_size();
    handle_main_window = CreateWindow(szWindowClass, szTitle, WS_POPUP | WS_VISIBLE,
-      0, 0, cx, cy, NULL, NULL, hInstance, NULL);
+      0, 0, window_size.cx, window_size.cy, NULL, NULL, hInstance, NULL);
 
    if (!handle_main_window)
    {
@@ -138,15 +137,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONUP:
 		{
 			WinOSAdapter::instance().on_event(message, wParam, lParam);
-			break;
 		}
+		break;
 	case WM_TIMER:
-		WinOSAdapter::instance().on_event(message, wParam, lParam);
+		{
+			WinOSAdapter::instance().on_event(message, wParam, lParam);
+		}
+		break;
 	case WM_PAINT:
 		{
 			RECT rt = {0, 0, 
-				GetSystemMetrics(SM_CXSCREEN),
-				GetSystemMetrics(SM_CYSCREEN)};
+				WinOSAdapter::instance().get_window_size().cx,
+				WinOSAdapter::instance().get_window_size().cy};
 			DirtyRectManager::instance().union_rect(rt);
 			WinOSAdapter::instance().request_update();
 		}

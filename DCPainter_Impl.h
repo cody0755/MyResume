@@ -8,6 +8,7 @@ public:
 	DCPainter_Impl(void);
 	virtual ~DCPainter_Impl(void);
 
+	virtual bool valid() const;
 	virtual bool init();
 	virtual void draw_text(const string&, const POINT&, const Font&, COLORREF clr);
 	virtual void draw_rect(const RECT&);
