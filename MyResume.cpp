@@ -41,10 +41,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	SetTimer(handle_main_window, 1, 4000, NULL);
-
-	WinOSAdapter::instance().startup();
-
 	// 主消息循环:
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
@@ -133,6 +129,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
+	case WM_CREATE:
+		{
+			handle_main_window = hWnd;
+			SetTimer(handle_main_window, 1, 40, NULL);
+			WinOSAdapter::instance().startup();
+		}
+		break;
 	case WM_LBUTTONDOWN:
 	case WM_LBUTTONUP:
 		{
@@ -146,11 +149,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_PAINT:
 		{
-			RECT rt = {0, 0, 
-				WinOSAdapter::instance().get_window_size().cx,
-				WinOSAdapter::instance().get_window_size().cy};
-			DirtyRectManager::instance().union_rect(rt);
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(hWnd, &ps);
 			WinOSAdapter::instance().request_update();
+			EndPaint(hWnd, &ps);
 		}
 		break;
 	case WM_DESTROY:

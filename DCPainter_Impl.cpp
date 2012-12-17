@@ -9,6 +9,7 @@ DCPainter_Impl::DCPainter_Impl(void)
 , memory_bitmap(NULL)
 , window_width(0)
 , window_height(0)
+, clip_rgn(NULL)
 {
 }
 
@@ -117,11 +118,21 @@ void DCPainter_Impl::update()
 	}
 	BitBlt(window_dc, 0, 0, window_width,
 		window_height, memory_dc, 0, 0, SRCCOPY);
+	if (clip_rgn)
+	{
+		SelectObject(memory_dc, NULL);
+		DeleteObject(clip_rgn);
+		clip_rgn = NULL;
+	}
 }
 
 void DCPainter_Impl::invalidate(const RECT& rt)
 {
-	InvalidateRect(handle_main_window, &rt, FALSE);
+	clip_rgn = CreateRectRgnIndirect(&rt);
+	if (clip_rgn)
+	{
+		SelectObject(memory_dc, clip_rgn);
+	}
 }
 
 void DCPainter_Impl::release()
@@ -140,5 +151,10 @@ void DCPainter_Impl::release()
 	{
 		ReleaseDC(handle_main_window, window_dc);
 		window_dc = NULL;
+	}
+	if (clip_rgn)
+	{
+		DeleteObject(clip_rgn);
+		clip_rgn = NULL;
 	}
 }

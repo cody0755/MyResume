@@ -18,6 +18,7 @@ public:
 private:
 	void release();
 private:
+	HRGN clip_rgn;
 	HDC memory_dc;
 	HDC window_dc;
 	HBITMAP memory_bitmap;
