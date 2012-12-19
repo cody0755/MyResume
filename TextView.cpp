@@ -25,7 +25,7 @@ void TextView::draw(Painter &painter)
 	{
 		return;
 	}
-	StatusColorMap::iterator iter = text_clrs.find(get_current_status());
+	StatusColorMap::iterator iter = text_clrs.find(get_draw_status());
 	COLORREF text_clr = 0xFFFFFF;
 	if (iter != text_clrs.end())
 	{

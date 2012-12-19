@@ -9,7 +9,7 @@ View::View(View *p)
 , y(0)
 , cx(0)
 , cy(0)
-, status(status_disable)
+, status(status_visible | draw_status_disable)
 {}
 
 View::~View(void)
@@ -38,9 +38,24 @@ View* View::get_parent() const
 	return parent;
 }
 
+bool View::is_visible() const
+{
+	return ((status & status_visible_mask) == status_visible);
+}
+
+void View::set_visible(bool visible)
+{
+	if (is_visible() == visible)
+	{
+		return;
+	}
+	status &= ~status_visible_mask;
+	invalidate();
+}
+
 bool View::is_enable() const
 {
-	return status != status_disable;
+	return ((status & status_enable_mask) == status_enable);
 }
 
 void View::set_enable(bool enable)
@@ -49,17 +64,13 @@ void View::set_enable(bool enable)
 	{
 		return;
 	}
-	if (!enable)
-	{
-		status = status_disable;
-	}
-	status |= status_enable;
+	status &= ~status_enable_mask;
 	invalidate();
 }
 
 bool View::is_pressed() const
 {
-	return is_enable() && (status & status_pressed);
+	return ((status & status_pressed_mask) == status_pressed);
 }
 
 void View::set_pressed(bool pressed)
@@ -67,15 +78,8 @@ void View::set_pressed(bool pressed)
 	if (is_pressed() == pressed)
 	{
 		return;
-	}
-	if (pressed)
-	{
-		status |= status_pressed;
 	} 
-	else
-	{
-		status &= ~status_pressed;
-	}
+	status &= ~status_pressed_mask;
 	invalidate();
 }
 
@@ -258,8 +262,7 @@ bool View::hit_test(const POINT& pt) const
 
 bool View::on_mouse_down(const POINT& pt)
 {
-	if (!hit_test(pt)
-		|| !is_enable())
+	if (!hit_test(pt))
 	{
 		return false;
 	}
@@ -273,7 +276,11 @@ bool View::on_mouse_down(const POINT& pt)
 			return true;
 		}
 	}
-	
+
+	if (!is_enable())
+	{
+		return false;
+	}
 	set_pressed(true);
 	MouseEvent event(pt, this);
 	return fire_signal(SignalId::press_down_signal, event);
@@ -281,8 +288,7 @@ bool View::on_mouse_down(const POINT& pt)
 
 bool View::on_mouse_up(const POINT& pt)
 {
-	if (!hit_test(pt)
-		|| !is_pressed())
+	if (!hit_test(pt))
 	{
 		return false;
 	}
@@ -297,6 +303,10 @@ bool View::on_mouse_up(const POINT& pt)
 		}
 	}
 
+	if (!is_enable())
+	{
+		return false;
+	}
 	set_pressed(false);
 	MouseEvent event(pt, this);
 	return fire_signal(SignalId::click_signal, event);
@@ -309,7 +319,7 @@ void View::draw(Painter &painter)
 		return;
 	}
 
-	StatusColorMap::iterator iter = bg_clrs.find(get_current_status());
+	StatusColorMap::iterator iter = bg_clrs.find(get_draw_status());
 	if (iter != bg_clrs.end())
 	{
 		painter.draw_color(iter->second, get_rect());
@@ -341,16 +351,16 @@ void View::invalidate() const
 	DirtyRectManager::instance().union_rect(get_rect());
 }
 
-unsigned long View::get_current_status() const
+unsigned long View::get_draw_status() const
 {
-	unsigned long status_mask = status_enable;
+	unsigned long status_mask = draw_status_enable;
 	if (is_pressed())
 	{
-		status_mask = status_pressed;
+		status_mask = draw_status_pressed;
 	}
 	else if (!is_enable())
 	{
-		status_mask = status_disable;
+		status_mask = draw_status_disable;
 	}
 	return status_mask;
 }

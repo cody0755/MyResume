@@ -62,7 +62,7 @@ bool AlarmClock::tick(int tick_count)
 	{
 		return false;
 	}
-	if (tick_count > (last_tick_time + period))
+	if (tick_count < (last_tick_time + period))
 	{
 		return false;
 	}

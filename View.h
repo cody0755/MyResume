@@ -12,13 +12,26 @@ typedef vector<View*> ChildViews;
 typedef map<unsigned long, COLORREF> StatusColorMap;
 class View : public Object
 {
+protected:
+	enum
+	{
+		status_visible_mask = 1,
+		status_enable_mask = 2,
+		status_pressed_mask = 6,
+	};
+	enum
+	{
+		status_visible = 1,
+		status_enable = 2,
+		status_pressed = 6,
+	};
+
 public:
 	enum
 	{
-		status_enable = 1,
-		status_disable = 0,
-		status_pressed = 2,
-		status_count
+		draw_status_disable = status_enable_mask & ~status_enable,
+		draw_status_enable = status_enable,
+		draw_status_pressed = status_pressed
 	};
 	View(View *parent = NULL);
 	virtual ~View(void);
@@ -26,6 +39,8 @@ public:
 	void set_parent(View *);
 	View* get_parent() const;
 
+	bool is_visible() const;
+	void set_visible(bool visible);
 	bool is_enable() const;
 	void set_enable(bool enable);
 	bool is_pressed() const;
@@ -62,7 +77,8 @@ public:
 	virtual void invalidate() const;
 
 protected:
-	unsigned long get_current_status() const;
+	//自定义各个状态的优先级
+	virtual unsigned long get_draw_status() const;
 
 protected:
 	ChildViews childs;

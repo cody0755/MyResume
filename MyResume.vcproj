@@ -183,6 +183,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AlarmClock.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\AlarmClockManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CoverActivity.cpp"
 				>
 			</File>
@@ -270,6 +278,14 @@
 			</File>
 			<File
 				RelativePath=".\ActivityManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\AlarmClock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\AlarmClockManager.h"
 				>
 			</File>
 			<File

@@ -15,7 +15,6 @@ private:
 	void on_destroy();
 
 	bool on_root_view_clicked(const Event& e);
-	bool on_time_out(const Event& e);
 
 	View *root_view;
 	AlarmClock alarm;

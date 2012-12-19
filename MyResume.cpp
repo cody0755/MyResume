@@ -151,6 +151,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
+			RECT rt = {0, 0, 
+				WinOSAdapter::instance().get_window_size().cx,
+				WinOSAdapter::instance().get_window_size().cy};
+			DirtyRectManager::instance().union_rect(rt);
 			WinOSAdapter::instance().request_update();
 			EndPaint(hWnd, &ps);
 		}
