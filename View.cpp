@@ -49,7 +49,14 @@ void View::set_visible(bool visible)
 	{
 		return;
 	}
-	status &= ~status_visible_mask;
+	if (visible)
+	{
+		status |= status_visible_mask;
+	} 
+	else
+	{
+		status &= ~status_visible_mask;
+	}
 	invalidate();
 }
 
@@ -64,7 +71,14 @@ void View::set_enable(bool enable)
 	{
 		return;
 	}
-	status &= ~status_enable_mask;
+	if (enable)
+	{
+		status |= status_enable_mask;
+	}
+	else
+	{
+		status &= ~status_enable_mask;
+	}
 	invalidate();
 }
 
@@ -79,7 +93,14 @@ void View::set_pressed(bool pressed)
 	{
 		return;
 	} 
-	status &= ~status_pressed_mask;
+	if (pressed)
+	{
+		status |= status_pressed_mask;
+	} 
+	else
+	{
+		status &= ~status_pressed_mask;
+	}
 	invalidate();
 }
 
@@ -137,6 +158,7 @@ void View::set_x(short rhs)
 	{
 		return;
 	}
+	invalidate();
 	x = rhs;
 	invalidate();
 	short diff = rhs - x;
@@ -157,6 +179,7 @@ void View::set_y(short rhs)
 	{
 		return;
 	}
+	invalidate();
 	y = rhs;
 	invalidate();
 	short diff = rhs - y;
@@ -177,6 +200,7 @@ void View::set_width(short rhs)
 	{
 		return;
 	}
+	invalidate();
 	cx = rhs;
 	invalidate();
 }
@@ -187,6 +211,7 @@ void View::set_height(short rhs)
 	{
 		return;
 	}
+	invalidate();
 	cy = rhs;
 	invalidate();
 }
@@ -314,7 +339,8 @@ bool View::on_mouse_up(const POINT& pt)
 
 void View::draw(Painter &painter)
 {
-	if (!DirtyRectManager::instance().is_intersecting(get_rect()))
+	if (!DirtyRectManager::instance().is_intersecting(get_rect())
+		|| !is_visible())
 	{
 		return;
 	}

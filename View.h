@@ -17,13 +17,13 @@ protected:
 	{
 		status_visible_mask = 1,
 		status_enable_mask = 2,
-		status_pressed_mask = 6,
+		status_pressed_mask = 4,
 	};
 	enum
 	{
 		status_visible = 1,
 		status_enable = 2,
-		status_pressed = 6,
+		status_pressed = 4,
 	};
 
 public:

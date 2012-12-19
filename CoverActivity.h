@@ -17,7 +17,6 @@ private:
 	bool on_root_view_clicked(const Event& e);
 
 	View *root_view;
-	AlarmClock alarm;
 };
 
 #endif
