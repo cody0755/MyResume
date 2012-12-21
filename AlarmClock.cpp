@@ -29,7 +29,7 @@ bool AlarmClock::start(Object *obj, SLOT_FUNC slot, int p, int r)
 	period = max(p, 30);
 	repeat = r;
 	is_running = true;
-	connect(SignalId::timer_timeout_signal, obj, slot);
+	connect(timer_timeout_signal, obj, slot);
 	AlarmClockManager::instance().push(this);
 	return true;
 }
@@ -47,7 +47,7 @@ bool AlarmClock::stop()
 		return false;
 	}
 	is_running = false;
-	disconnect(SignalId::timer_timeout_signal);
+	disconnect(timer_timeout_signal);
 	return true;
 }
 
@@ -66,8 +66,8 @@ bool AlarmClock::tick(int tick_count)
 	{
 		return false;
 	}
-	Event e(this);
-	fire_signal(SignalId::timer_timeout_signal, e);
+	Event e(timer_timeout_signal, this, tick_count);
+	fire_signal(timer_timeout_signal, e);
 	last_tick_time = tick_count;
 	if (repeat != ENDLESS
 		&& repeat > 0)

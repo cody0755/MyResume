@@ -1,8 +1,10 @@
 #include "StdAfx.h"
 #include "Event.h"
 
-Event::Event(Object *obj)
+Event::Event(UINT s, Object *obj, int p)
 : signalor(obj)
+, signal(s)
+, param(p)
 {}
 
 Event::~Event(void)
@@ -13,8 +15,13 @@ Object* Event::get_signalor() const
 	return signalor;
 }
 
-MouseEvent::MouseEvent(const POINT& pt, Object *obj)
-: Event(obj)
+int Event::get_param() const
+{
+	return param;
+}
+
+MouseEvent::MouseEvent(const POINT& pt, UINT s, Object *obj, int p)
+: Event(s, obj, p)
 , point(pt)
 {}
 

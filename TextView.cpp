@@ -101,7 +101,7 @@ SIZE TextView::get_text_size() const
 		return s;
 	}
 	SIZE fs = font->get_size();
-	s.cx = fs.cx * text.size();
+	s.cx = fs.cx * static_cast<LONG>(text.size());
 	s.cy = fs.cy;
 	return s;
 }

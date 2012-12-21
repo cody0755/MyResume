@@ -80,6 +80,10 @@ protected:
 	//自定义各个状态的优先级
 	virtual unsigned long get_draw_status() const;
 
+private:
+	View(const View&);
+	View& operator=(const View&);
+
 protected:
 	ChildViews childs;
 	View *parent;

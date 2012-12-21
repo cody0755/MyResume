@@ -15,6 +15,7 @@ private:
 	void on_destroy();
 
 	bool on_root_view_clicked(const Event& e);
+	bool on_quit(const Event&);
 
 	View *root_view;
 };

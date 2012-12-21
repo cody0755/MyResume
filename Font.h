@@ -18,6 +18,10 @@ public:
 	bool operator==(const Font&);
 	bool equal(const SIZE& s, const string&) const;
 
+private:
+	Font(const Font&);
+	Font& operator=(const Font&);
+
 protected:
 	SIZE size;
 	string family;

@@ -21,24 +21,24 @@ void CoverActivity::on_create()
 	SIZE window_size = WinOSAdapter::instance().get_window_size();
 	RECT rt = {0, 0, window_size.cx, window_size.cy};
 	root_view->set_rect(rt);
-	root_view->set_enable(true);
-	root_view->set_background_clr(View::draw_status_enable, RGB(166,190,181));
+	root_view->set_background_clr(View::draw_status_disable, RGB(166,190,181));
 	root_view->set_background_clr(View::draw_status_pressed, RGB(45,212,147));
-	root_view->connect(SignalId::click_signal, this, (SLOT_FUNC)&CoverActivity::on_root_view_clicked);
 	
-	TextView *text_view = new TextView(root_view);
-	if (text_view)
+	ButtonView *bn = new ButtonView(root_view);
+	if (bn)
 	{
-		root_view->push_child(text_view);
+		root_view->push_child(bn);
+		RECT rt1 = {window_size.cx - 100,window_size.cy - 100,window_size.cx,window_size.cy};
+		bn->set_rect(rt1);
+		bn->set_background_clr(View::draw_status_enable, RGB(0xff,0,0));
+		bn->set_background_clr(View::draw_status_pressed, RGB(0x80,0,0));
+		bn->set_text("退出");
+		bn->set_text_clr(View::draw_status_enable, RGB(0,0xff,0));
+		SIZE size = {20,20};
+		bn->set_font(ResourceCreator::instance().get_font(size, "宋体"));
+
+		bn->connect(click_signal, this, (SLOT_FUNC)&CoverActivity::on_quit);
 	}
-	RECT rt1 = {100,100,400,400};
-	text_view->set_rect(rt1);
-	text_view->set_background_clr(View::draw_status_disable, RGB(0xff,0,0));
-	text_view->set_text("世界你好!");
-	text_view->set_text_clr(View::draw_status_disable, RGB(0,0xff,0));
-	SIZE size = {20,20};
-	Font *font = new WinFont(size, "宋体");
-	text_view->set_font(*font);
 }
 
 void CoverActivity::on_destroy()
@@ -46,8 +46,13 @@ void CoverActivity::on_destroy()
 
 }
 
-bool CoverActivity::on_root_view_clicked(const Event& e)
+bool CoverActivity::on_root_view_clicked(const Event&)
 {
-	e;
+	return true;
+}
+
+bool CoverActivity::on_quit(const Event&)
+{
+	PostQuitMessage(0);
 	return true;
 }

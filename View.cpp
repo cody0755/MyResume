@@ -307,8 +307,8 @@ bool View::on_mouse_down(const POINT& pt)
 		return false;
 	}
 	set_pressed(true);
-	MouseEvent event(pt, this);
-	return fire_signal(SignalId::press_down_signal, event);
+	MouseEvent event(pt, press_down_signal, this);
+	return fire_signal(press_down_signal, event);
 }
 
 bool View::on_mouse_up(const POINT& pt)
@@ -333,8 +333,8 @@ bool View::on_mouse_up(const POINT& pt)
 		return false;
 	}
 	set_pressed(false);
-	MouseEvent event(pt, this);
-	return fire_signal(SignalId::click_signal, event);
+	MouseEvent event(pt, click_signal, this);
+	return fire_signal(click_signal, event);
 }
 
 void View::draw(Painter &painter)

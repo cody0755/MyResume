@@ -4,6 +4,8 @@
 #include "object.h"
 #include "View.h"
 #include "TextView.h"
+#include "ButtonView.h"
+#include "ResourceCreator.h"
 
 class Painter;
 class Activity : public Object

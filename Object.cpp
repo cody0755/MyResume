@@ -6,6 +6,9 @@ Object::Object(void)
 
 Object::~Object(void)
 {
+	Event e(object_destroy_signal, this);
+	fire_signal(object_destroy_signal, e);
+
 	SignalSet::iterator iter = active_signal_set.begin();
 	SignalSet::iterator iter_end = active_signal_set.end();
 	for (; iter != iter_end; ++iter)
