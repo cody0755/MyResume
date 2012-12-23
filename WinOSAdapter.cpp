@@ -15,8 +15,8 @@ WinOSAdapter::WinOSAdapter(void)
 : painter(NULL)
 , painter_impl(NULL)
 {
-	window_size.cx = GetSystemMetrics(SM_CXSCREEN);
-	window_size.cy = GetSystemMetrics(SM_CYSCREEN);
+	window_size.cx = 1024;
+	window_size.cy = 600;
 }
 
 WinOSAdapter::~WinOSAdapter(void)

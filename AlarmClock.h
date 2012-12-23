@@ -25,6 +25,7 @@ private:
 	int period;
 	int repeat;
 	bool is_running;
+	bool is_ticking;
 };
 
 static const int ENDLESS;

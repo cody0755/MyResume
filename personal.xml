@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF8">
+<view
+	bg_disable_color="808080"
+	width="1024"
+	height="800">
+	<view
+		width="200"
+		height="800">
+		<button
+			x="0"
+			y="0"
+			width="200"
+			height="40"
+			bg_enable_color="FF0000"
+			bg_pressed_color="800000"
+			font_width="30"
+			font_height="30"
+			font_enable_color="FFFFFF"
+			font_pressed_color="FFFF00"
+			text="基本信息"/>
+	</view>
+</view>

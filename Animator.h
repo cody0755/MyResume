@@ -3,8 +3,7 @@
 
 #include "object.h"
 #include "AlarmClock.h"
-
-class Interpolator;
+#include "Interpolator.h"
 
 class Animator : public Object
 {
@@ -16,6 +15,7 @@ public:
 	virtual bool start();
 	virtual bool stop();
 	virtual void update(float);
+	virtual Animator* clone() const;
 
 	bool is_started();
 	bool on_timer(const Event&);
@@ -32,6 +32,8 @@ protected:
 		status_started
 	};
 	enum {ENDLESS = static_cast<int>(-1)};
+
+	virtual void reset();
 
 	void fire_start_signal();
 	void fire_update_signal(int tick);

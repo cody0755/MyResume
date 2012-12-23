@@ -9,6 +9,7 @@ AlarmClock::AlarmClock(void)
 , period(0)
 , repeat(1)
 , is_running(false)
+, is_ticking(false)
 {}
 
 AlarmClock::~AlarmClock(void)
@@ -36,7 +37,10 @@ bool AlarmClock::start(Object *obj, SLOT_FUNC slot, int p, int r)
 
 bool AlarmClock::cancel()
 {
-	AlarmClockManager::instance().pop(this);
+	if (!is_ticking)
+	{
+		AlarmClockManager::instance().pop(this);
+	} 
 	return stop();
 }
 
@@ -67,7 +71,9 @@ bool AlarmClock::tick(int tick_count)
 		return false;
 	}
 	Event e(timer_timeout_signal, this, tick_count);
+	is_ticking = true;
 	fire_signal(timer_timeout_signal, e);
+	is_ticking = false;
 	last_tick_time = tick_count;
 	if (repeat != ENDLESS
 		&& repeat > 0)

@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "Animator.h"
 #include "WinOSAdapter.h"
-#include "Interpolator.h"
+#include "ResourceCreator.h"
 
 Animator::Animator(void)
 : status(status_none)
@@ -34,7 +34,7 @@ Animator::~Animator(void)
 
 bool Animator::start()
 {
-	if (is_started() || period == 0 || repeat == 0)
+	if (is_started() || period == 0 || repeat == 0 || !interpolator)
 	{
 		return false;
 	}
@@ -56,13 +56,21 @@ bool Animator::stop()
 		return false;
 	}
 
+	fraction = 1.0f;
+	update(fraction);
+	fire_update_signal(start_time + period);
 	fire_stop_signal();
-	status = status_none;
+	reset();
 	return true;
 }
 
 void Animator::update(float)
 {}
+
+Animator* Animator::clone() const
+{
+	return new Animator(period, repeat, interpolator);
+}
 
 bool Animator::is_started()
 {
@@ -73,8 +81,8 @@ bool Animator::on_timer(const Event& e)
 {
 	if (is_last_frame)
 	{
-		is_last_frame = false;
-		stop();
+		fire_stop_signal();
+		reset();
 		return true;
 	}
 
@@ -82,14 +90,21 @@ bool Animator::on_timer(const Event& e)
 	float time_fraction = static_cast<float>(tick - start_time) / period;
 	time_fraction = min(1.0f, max(time_fraction, 0.0f));
 	fraction = interpolator->calc(time_fraction);
-	if (fabs(fraction - 1.0f) < FLT_EPSILON)
+	if (fabs(fraction - 1.0f) < numeric_limits<float>::epsilon())
 	{
 		fraction = 1.0f;
 	}
 	update(fraction);
 	if ((fraction == 1.0f) && (repeat != ENDLESS) && (--repeat == 0))
 	{
-		is_last_frame = true;
+		if ((repeat == ENDLESS) || (repeat != 0))
+		{
+			start_time = tick;
+		}
+		else
+		{
+			is_last_frame = true;
+		}
 	}
 	fire_update_signal(tick);
 	return true;
@@ -121,13 +136,22 @@ bool Animator::set_interpolator(const Interpolator& i)
 	{
 		return false;
 	}
-	interpolator = &i;
+	interpolator = const_cast<Interpolator*>(&i);
 	return true;
 }
 
 float Animator::get_fraction() const
 {
 	return fraction;
+}
+
+void Animator::reset()
+{
+	timer.cancel();
+	start_time = 0;
+	status = status_none;
+	fraction = 0.0f;
+	is_last_frame = false;
 }
 
 void Animator::fire_start_signal()

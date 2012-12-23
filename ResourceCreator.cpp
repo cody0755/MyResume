@@ -3,6 +3,11 @@
 
 ResourceCreator::ResourceCreator(void)
 : none_font(NULL)
+, lin_interpolator(NULL)
+, acc_interpolator(NULL)
+, dec_interpolator(NULL)
+, cyc_interpolator(NULL)
+, acc_dec_interpolator(NULL)
 {}
 
 ResourceCreator::~ResourceCreator(void)
@@ -55,4 +60,49 @@ Font& ResourceCreator::get_font(const SIZE& s, const string& f)
 	}
 	fonts.push_back(font);
 	return *font;
+}
+
+Interpolator* ResourceCreator::get_linear_interpolator()
+{
+	if (!lin_interpolator)
+	{
+		lin_interpolator = new LinearInterpolator;
+	}
+	return lin_interpolator;
+}
+
+Interpolator* ResourceCreator::get_accelerate_interpolator()
+{
+	if (!acc_interpolator)
+	{
+		acc_interpolator = new AccelerateInterpolator;
+	}
+	return acc_interpolator;
+}
+
+Interpolator* ResourceCreator::get_decelerate_interpolator()
+{
+	if (!dec_interpolator)
+	{
+		dec_interpolator = new DecelerateInterpolator;
+	}
+	return dec_interpolator;
+}
+
+Interpolator* ResourceCreator::get_cycle_interpolator()
+{
+	if (!cyc_interpolator)
+	{
+		cyc_interpolator = new CycleInterpolator;
+	}
+	return cyc_interpolator;
+}
+
+Interpolator* ResourceCreator::get_accelerate_decelerate_interpolator()
+{
+	if (!acc_dec_interpolator)
+	{
+		acc_dec_interpolator = new AccelerateDecelerateInterpolator;
+	}
+	return acc_dec_interpolator;
 }
