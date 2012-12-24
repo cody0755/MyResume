@@ -1,5 +1,8 @@
 #include "StdAfx.h"
 #include "ResourceCreator.h"
+#include "View.h"
+#include "ButtonView.h"
+#include "TextView.h"
 
 ResourceCreator::ResourceCreator(void)
 : none_font(NULL)
@@ -58,6 +61,15 @@ Font& ResourceCreator::get_font(const SIZE& s, const string& f)
 	{
 		font = new WinFont(s, f);
 	}
+	if (!font)
+	{
+		return get_none_font();
+	}
+	if (!font->valid())
+	{
+		delete font;
+		return get_none_font();
+	}
 	fonts.push_back(font);
 	return *font;
 }
@@ -105,4 +117,21 @@ Interpolator* ResourceCreator::get_accelerate_decelerate_interpolator()
 		acc_dec_interpolator = new AccelerateDecelerateInterpolator;
 	}
 	return acc_dec_interpolator;
+}
+
+View* ResourceCreator::get_view(const string& view)
+{
+	if ("view" == view)
+	{
+		return new View;
+	}
+	else if ("button" == view)
+	{
+		return new ButtonView;
+	} 
+	else if ("text" == view)
+	{
+		return new TextView;
+	}
+	return NULL;
 }

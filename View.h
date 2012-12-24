@@ -3,8 +3,9 @@
 
 #include "Object.h"
 #include <map>
-#include "SignalId.h"
+#include "IDDefine.h"
 #include "DirtyRectManager.h"
+#include "XmlParser.h"
 
 class Painter;
 class View;
@@ -75,6 +76,10 @@ public:
 	virtual void push_child(View *v);
 	virtual void pop_child(ChildViews::iterator pos);
 	virtual void invalidate() const;
+	void parse(const PropMap&);
+	virtual void parse_self(const PropMap&);
+
+	View* find_view_by_id(int);
 
 protected:
 	//自定义各个状态的优先级
@@ -93,6 +98,7 @@ protected:
 	short y;
 	short cx;
 	short cy;
+	int id;
 
 	unsigned long status;
 	StatusColorMap bg_clrs;

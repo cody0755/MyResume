@@ -25,9 +25,11 @@ public:
 	void push(Activity *);
 	void pop();
 
+	void set_view(const string& file);
 	void set_view(const View *v);
 	View* get_view() const;
 	void draw_view(Painter& painter);
+	View* find_view_by_id(int);
 
 protected:
 	View *view;

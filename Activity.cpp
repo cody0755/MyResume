@@ -58,6 +58,13 @@ void Activity::pop()
 	ActivityManager::instance().pop();
 }
 
+void Activity::set_view(const string& file)
+{
+	XmlParser parser;
+	View *v = parser.parse(file);
+	set_view(v);
+}
+
 void Activity::set_view(const View *v)
 {
 	if (view == v)
@@ -79,4 +86,13 @@ void Activity::draw_view(Painter& painter)
 		return;
 	}
 	view->draw(painter);
+}
+
+View* Activity::find_view_by_id(int rhs)
+{
+	if (!view)
+	{
+		return NULL;
+	}
+	return view->find_view_by_id(rhs);
 }

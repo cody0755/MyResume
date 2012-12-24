@@ -9,6 +9,7 @@ View::View(View *p)
 , y(0)
 , cx(0)
 , cy(0)
+, id(0)
 , status(status_visible | draw_status_disable)
 {}
 
@@ -375,6 +376,109 @@ void View::pop_child(ChildViews::iterator pos)
 void View::invalidate() const
 {
 	DirtyRectManager::instance().union_rect(get_rect());
+}
+
+void View::parse(const PropMap& prop)
+{
+	PropMap::const_iterator iter = prop.begin();
+	PropMap::const_iterator iter_end = prop.end();
+	iter = prop.find("x");
+	if (iter != iter_end)
+	{
+		x = atoi(iter->second.c_str());
+	}
+	iter = prop.find("y");
+	if (iter != iter_end)
+	{
+		y = atoi(iter->second.c_str());
+	}
+	iter = prop.find("width");
+	if (iter != iter_end)
+	{
+		cx = atoi(iter->second.c_str());
+	}
+	iter = prop.find("height");
+	if (iter != iter_end)
+	{
+		cy = atoi(iter->second.c_str());
+	}
+	iter = prop.find("id");
+	if (iter != iter_end)
+	{
+		id = atoi(iter->second.c_str());
+	}
+	iter = prop.find("bg_enable_color");
+	if (iter != iter_end)
+	{
+		COLORREF clr;
+		sscanf(iter->second.c_str(), "%x", &clr);
+		bg_clrs[draw_status_enable] = clr;
+	}
+	iter = prop.find("bg_disable_color");
+	if (iter != iter_end)
+	{
+		COLORREF clr;
+		sscanf(iter->second.c_str(), "%x", &clr);
+		bg_clrs[draw_status_disable] = clr;
+	}
+	iter = prop.find("bg_pressed_color");
+	if (iter != iter_end)
+	{
+		COLORREF clr;
+		sscanf(iter->second.c_str(), "%x", &clr);
+		bg_clrs[draw_status_pressed] = clr;
+	}
+	iter = prop.find("visible");
+	if (iter != iter_end)
+	{
+		if (iter->second != "false")
+		{
+			status |= status_visible_mask;
+		} 
+		else
+		{
+			status &= ~status_visible_mask;
+		}
+	}
+	iter = prop.find("enable");
+	if (iter != iter_end)
+	{
+		if (iter->second != "false")
+		{
+			status |= status_enable_mask;
+		} 
+		else
+		{
+			status &= ~status_enable_mask;
+		}
+	}
+
+	parse_self(prop);
+}
+
+void View::parse_self(const PropMap&)
+{}
+
+View* View::find_view_by_id(int rhs)
+{
+	if (rhs == invalid_view_id)
+	{
+		return NULL;
+	}
+	if (rhs == id)
+	{
+		return this;
+	}
+	View *v = NULL;
+	for (size_t i=0; i<childs.size(); ++i)
+	{
+		v = childs[i]->find_view_by_id(rhs);
+		if (v)
+		{
+			return v;
+		}
+	}
+	return NULL;
 }
 
 unsigned long View::get_draw_status() const

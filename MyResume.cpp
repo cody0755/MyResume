@@ -132,7 +132,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		{
 			handle_main_window = hWnd;
-			SetTimer(handle_main_window, 1, 40, NULL);
+			SetTimer(handle_main_window, 1, 20, NULL);
 			WinOSAdapter::instance().startup();
 		}
 		break;

@@ -1,7 +1,7 @@
 #ifndef MYRESUME_EVENT_H
 #define MYRESUME_EVENT_H
 
-#include "SignalId.h"
+#include "IDDefine.h"
 
 class Object;
 class Event

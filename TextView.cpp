@@ -35,6 +35,59 @@ void TextView::draw(Painter &painter)
 	painter.draw_text(text, text_origin, *font, text_clr);
 }
 
+void TextView::parse_self(const PropMap& prop)
+{
+	PropMap::const_iterator iter = prop.begin();
+	PropMap::const_iterator iter_end = prop.end();
+	iter = prop.find("text");
+	if (iter != iter_end)
+	{
+		text = iter->second;
+	}
+	iter = prop.find("font_enable_color");
+	if (iter != iter_end)
+	{
+		COLORREF clr;
+		sscanf(iter->second.c_str(), "%x", &clr);
+		text_clrs[draw_status_enable] = clr;
+	}
+	iter = prop.find("font_disable_color");
+	if (iter != iter_end)
+	{
+		COLORREF clr;
+		sscanf(iter->second.c_str(), "%x", &clr);
+		text_clrs[draw_status_disable] = clr;
+	}
+	iter = prop.find("font_pressed_color");
+	if (iter != iter_end)
+	{
+		COLORREF clr;
+		sscanf(iter->second.c_str(), "%x", &clr);
+		text_clrs[draw_status_pressed] = clr;
+	}
+	string font_family;
+	iter = prop.find("font_family");
+	if (iter != iter_end)
+	{
+		font_family = iter->second;
+	}
+	SIZE size = {0};
+	iter = prop.find("font_width");
+	if (iter != iter_end)
+	{
+		sscanf(iter->second.c_str(), "%d", &size.cx);
+	}
+	iter = prop.find("font_height");
+	if (iter != iter_end)
+	{
+		sscanf(iter->second.c_str(), "%d", &size.cy);
+	}
+	if (size.cx > 0 && size.cy > 0 && !font_family.empty())
+	{
+		font = &ResourceCreator::instance().get_font(size, font_family);
+	}
+}
+
 void TextView::set_text(const string& rhs)
 {
 	if (rhs == text)

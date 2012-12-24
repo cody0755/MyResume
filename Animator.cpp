@@ -2,6 +2,9 @@
 #include "Animator.h"
 #include "WinOSAdapter.h"
 #include "ResourceCreator.h"
+#include <limits>
+
+using namespace std;
 
 Animator::Animator(void)
 : status(status_none)
@@ -39,7 +42,7 @@ bool Animator::start()
 		return false;
 	}
 
-	if (!timer.start(this, (SLOT_FUNC)&Animator::on_timer, 40, AlarmClock::ENDLESS))
+	if (!timer.start(this, (SLOT_FUNC)&Animator::on_timer, 20, AlarmClock::ENDLESS))
 	{
 		return false;
 	}

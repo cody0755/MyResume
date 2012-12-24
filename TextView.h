@@ -9,6 +9,7 @@ public:
 	virtual ~TextView(void);
 
 	virtual void draw(Painter &painter);
+	virtual void parse_self(const PropMap&);
 
 	void set_text(const string&);
 	const string& get_text() const;

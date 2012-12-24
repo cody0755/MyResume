@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Interpolator.h"
 
+class View;
 class ResourceCreator
 {
 private:
@@ -17,6 +18,7 @@ public:
 	Interpolator* get_decelerate_interpolator();
 	Interpolator* get_cycle_interpolator();
 	Interpolator* get_accelerate_decelerate_interpolator();
+	View* get_view(const string& view);
 
 private:
 	NoneFont *none_font;

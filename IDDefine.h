@@ -1,5 +1,5 @@
-#ifndef MYRESUME_SIGNALID_H
-#define MYRESUME_SIGNALID_H
+#ifndef MYRESUME_IDDEFINE_H
+#define MYRESUME_IDDEFINE_H
 enum
 {
 	invalid_signal = 0,
@@ -8,8 +8,15 @@ enum
 	press_up_signal,
 	click_signal,
 	timer_timeout_signal,
-	animator_start_signal,
+	animator_start_signal, 
 	animator_update_signal,
 	animator_stop_signal
+};
+
+enum
+{
+	invalid_view_id = 0,
+	id_bn_class_personal = 1,
+
 };
 #endif

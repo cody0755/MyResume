@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "AlarmClock.h"
 #include "WinOSAdapter.h"
-#include "SignalId.h"
+#include "IDDefine.h"
 #include "AlarmClockManager.h"
 
 AlarmClock::AlarmClock(void)
