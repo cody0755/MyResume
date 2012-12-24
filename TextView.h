@@ -20,6 +20,7 @@ public:
 	const StatusColorMap& get_text_clr() const;
 	bool get_text_clr(unsigned long, COLORREF&) const;
 private:
+	int get_text_count() const;
 	SIZE get_text_size() const;
 	POINT get_text_origin() const;
 private:

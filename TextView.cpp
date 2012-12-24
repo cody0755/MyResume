@@ -146,6 +146,15 @@ bool TextView::get_text_clr(unsigned long s, COLORREF& c) const
 	return false;
 }
 
+int TextView::get_text_count() const
+{
+	if (text.empty())
+	{
+		return 0;
+	}
+	return text.size();
+}
+
 SIZE TextView::get_text_size() const
 {
 	SIZE s = {0, 0};
@@ -154,7 +163,7 @@ SIZE TextView::get_text_size() const
 		return s;
 	}
 	SIZE fs = font->get_size();
-	s.cx = fs.cx * static_cast<LONG>(text.size());
+	s.cx = fs.cx * static_cast<LONG>(get_text_count());
 	s.cy = fs.cy;
 	return s;
 }

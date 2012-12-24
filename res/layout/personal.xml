@@ -1,50 +1,138 @@
-<?xml version="1.0" encoding="UTF8">
+<?xml version="1.0" encoding="GB2312">
 <view
-	bg_disable_color="808080"
+	bg_disable_color="CCCCCC"
 	width="1024"
 	height="600">
+	<text
+		width="1024"
+		height="50"
+		bg_disable_color="000000"
+		font_disable_color="FFFFFF"
+		font_width="20"
+		font_height="40"
+		font_family="宋体"
+		text="谢谢您浏览我的简历">
+		<button
+			x="944"
+			width="80"
+			height="50"
+			bg_enable_color="0000FF"
+			bg_pressed_color="000080"
+			font_enable_color="008000"
+			font_width="20"
+			font_height="40"
+			font_family="宋体"
+			text="关闭"/>
+	</text>
 	<view
+		y="50"
 		width="200"
 		height="600">
-		<button
+		<text
 			id="1"
 			x="0"
-			y="0"
+			y="50"
 			width="200"
 			height="40"
-			bg_enable_color="FF0000"
+			bg_disable_color="FF00FF"
 			bg_pressed_color="800000"
 			font_width="20"
-			font_height="20"
+			font_height="30"
 			font_family="宋体"
 			font_enable_color="FFFFFF"
 			font_pressed_color="FFFF00"
 			text="基本信息"/>
 		<button
+			id="2"
 			x="0"
-			y="40"
+			y="90"
 			width="200"
 			height="40"
 			bg_enable_color="FF0000"
 			bg_pressed_color="800000"
 			font_width="20"
-			font_height="20"
+			font_height="30"
 			font_family="宋体"
 			font_enable_color="FFFFFF"
 			font_pressed_color="FFFF00"
-			text="XXXX"/>
+			text="工作经历"/>
+		<button
+			id="3"
+			x="0"
+			y="130"
+			width="200"
+			height="40"
+			bg_enable_color="FF0000"
+			bg_pressed_color="800000"
+			font_width="20"
+			font_height="30"
+			font_family="宋体"
+			font_enable_color="FFFFFF"
+			font_pressed_color="FFFF00"
+			text="技能掌握"/>
+		<button
+			id="4"
+			x="0"
+			y="170"
+			width="200"
+			height="40"
+			bg_enable_color="FF0000"
+			bg_pressed_color="800000"
+			font_width="20"
+			font_height="30"
+			font_family="宋体"
+			font_enable_color="FFFFFF"
+			font_pressed_color="FFFF00"
+			text="工作期望"/>
+		<button
+			id="2"
+			x="0"
+			y="210"
+			width="200"
+			height="40"
+			bg_enable_color="FF0000"
+			bg_pressed_color="800000"
+			font_width="20"
+			font_height="30"
+			font_family="宋体"
+			font_enable_color="FFFFFF"
+			font_pressed_color="FFFF00"
+			text="关于本软件"/>
 	</view>
 	<view
 		x="200"
+		y="50"
 		width="824"
 		height="600">
 		<text
 			x="200"
-			width="300"
+			y="50"
+			width="150"
 			height="20"
-			font_width="20"
-			font_height="20"
+			bg_disable_color="008000"
+			font_width="10"
+			font_height="16"
 			font_family="宋体"
 			text="姓名:梁佐庭"/>
+		<text
+			x="350"
+			y="50"
+			width="150"
+			height="20"
+			bg_disable_color="008000"
+			font_width="10"
+			font_height="16"
+			font_family="宋体"
+			text="性别:男"/>
+		<text
+			x="500"
+			y="50"
+			width="150"
+			height="20"
+			bg_disable_color="008000"
+			font_width="10"
+			font_height="16"
+			font_family="宋体"
+			text="年龄:26"/>
 	</view>
 </view>

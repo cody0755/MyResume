@@ -19,11 +19,11 @@ void CoverActivity::on_create()
 	set_view("res/layout/personal.xml");
 	View *v = find_view_by_id(id_bn_class_personal);
 	v->connect(click_signal, this, (SLOT_FUNC)&CoverActivity::on_quit);
-	anim.set_period(500);
+	anim.set_period(300);
 	anim.set_interpolator(*ResourceCreator::instance().get_linear_interpolator());
 	anim.set_view(v);
-	POINT sp = {-200, 0};
-	POINT ep = {0, 0};
+	POINT sp = {-200, 50};
+	POINT ep = {0, 50};
 	anim.set_points(sp, ep);
 	anim.start();
 }

@@ -57,10 +57,7 @@ Font& ResourceCreator::get_font(const SIZE& s, const string& f)
 			return *font;
 		}
 	}
-	if (!font)
-	{
-		font = new WinFont(s, f);
-	}
+	font = new WinFont(s, f);
 	if (!font)
 	{
 		return get_none_font();
