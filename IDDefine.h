@@ -16,7 +16,9 @@ enum
 enum
 {
 	invalid_view_id = 0,
-	id_bn_class_personal = 1,
+	id_quit = 1,
+	id_view_navi = 2,
+	id_bn_class_personal = 3,
 
 };
 #endif

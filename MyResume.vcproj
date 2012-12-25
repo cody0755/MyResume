@@ -191,6 +191,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Animator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ButtonView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CoverActivity.cpp"
 				>
 			</File>
@@ -208,6 +216,10 @@
 			</File>
 			<File
 				RelativePath=".\Font.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Interpolator.cpp"
 				>
 			</File>
 			<File
@@ -259,11 +271,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TranslateViewAnimator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\View.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\ViewAnimator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\WinOSAdapter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlParser.cpp"
 				>
 			</File>
 		</Filter>
@@ -289,6 +313,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Animator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ButtonView.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CoverActivity.h"
 				>
 			</File>
@@ -306,6 +338,14 @@
 			</File>
 			<File
 				RelativePath=".\Font.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IDDefine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Interpolator.h"
 				>
 			</File>
 			<File
@@ -333,10 +373,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SignalId.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Slot.h"
 				>
 			</File>
@@ -349,11 +385,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TranslateViewAnimator.h"
+				>
+			</File>
+			<File
 				RelativePath=".\View.h"
 				>
 			</File>
 			<File
+				RelativePath=".\ViewAnimator.h"
+				>
+			</File>
+			<File
 				RelativePath=".\WinOSAdapter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlParser.h"
 				>
 			</File>
 		</Filter>

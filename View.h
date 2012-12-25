@@ -26,6 +26,11 @@ protected:
 		status_enable = 2,
 		status_pressed = 4,
 	};
+	enum
+	{
+		align_h_mask = 0xf,
+		align_v_mask = 0xf0
+	};
 
 public:
 	enum
@@ -34,12 +39,25 @@ public:
 		draw_status_enable = status_enable,
 		draw_status_pressed = status_pressed
 	};
+	enum
+	{
+		align_left = 0,
+		align_right,
+		align_h_center,
+		align_top = 0x10,
+		align_bottom = 0x20,
+		align_v_center = 0x30
+	};
 	View(View *parent = NULL);
 	virtual ~View(void);
 
 	void set_parent(View *);
 	View* get_parent() const;
 
+	void set_h_align(unsigned char);
+	unsigned char get_h_align() const;
+	void set_v_align(unsigned char);
+	unsigned char get_v_align() const;
 	bool is_visible() const;
 	void set_visible(bool visible);
 	bool is_enable() const;
@@ -99,6 +117,7 @@ protected:
 	short cx;
 	short cy;
 	int id;
+	unsigned char align;
 
 	unsigned long status;
 	StatusColorMap bg_clrs;

@@ -180,7 +180,29 @@ POINT TextView::get_text_origin() const
 	{
 		return pt;
 	}
-	pt.x = x + (cx - ts.cx) / 2;
-	pt.y = y + (cy - ts.cy) / 2;
+	switch (get_h_align())
+	{
+	case align_left:
+		pt.x = x;
+		break;
+	case align_right:
+		pt.x = x + (cx - ts.cx);
+		break;
+	case align_h_center:
+		pt.x = x + (cx - ts.cx) / 2;
+		break;
+	}
+	switch (get_v_align())
+	{
+	case align_top:
+		pt.y = y;
+		break;
+	case align_bottom:
+		pt.y = y + (cy - ts.cy);
+		break;
+	case align_v_center:
+		pt.y = y + (cy - ts.cy) / 2;
+		break;
+	}
 	return pt;
 }

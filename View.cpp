@@ -11,6 +11,7 @@ View::View(View *p)
 , cy(0)
 , id(0)
 , status(status_visible | draw_status_disable)
+, align((align_h_mask & align_h_center) | (align_v_mask & align_v_center))
 {}
 
 View::~View(void)
@@ -37,6 +38,36 @@ void View::set_parent(View *p)
 View* View::get_parent() const
 {
 	return parent;
+}
+
+void View::set_h_align(unsigned char a)
+{
+	if ((align & align_h_mask) == (a & align_h_mask))
+	{
+		return;
+	}
+	align = ((align & align_v_mask) | (align_h_mask & a));
+	invalidate();
+}
+
+unsigned char View::get_h_align() const
+{
+	return align & align_h_mask;
+}
+
+void View::set_v_align(unsigned char a)
+{
+	if ((align & align_v_mask) == (a & align_v_mask))
+	{
+		return;
+	}
+	align = ((align & align_h_mask) | (align_v_mask & a));
+	invalidate();
+}
+
+unsigned char View::get_v_align() const
+{
+	return align & align_v_mask;
 }
 
 bool View::is_visible() const
@@ -159,10 +190,10 @@ void View::set_x(short rhs)
 	{
 		return;
 	}
+	short diff = rhs - x;
 	invalidate();
 	x = rhs;
 	invalidate();
-	short diff = rhs - x;
 	View *v;
 	for (size_t i=0; i<childs.size(); ++i)
 	{
@@ -180,10 +211,10 @@ void View::set_y(short rhs)
 	{
 		return;
 	}
+	short diff = rhs - y;
 	invalidate();
 	y = rhs;
 	invalidate();
-	short diff = rhs - y;
 	View *v;
 	for (size_t i=0; i<childs.size(); ++i)
 	{
@@ -450,6 +481,40 @@ void View::parse(const PropMap& prop)
 		else
 		{
 			status &= ~status_enable_mask;
+		}
+	}
+
+	iter = prop.find("h_align");
+	if (iter != iter_end)
+	{
+		if (iter->second == "left")
+		{
+			set_h_align(align_left);
+		} 
+		else if (iter->second == "right")
+		{
+			set_h_align(align_right);
+		}
+		else if (iter->second == "center")
+		{
+			set_h_align(align_h_center);
+		}
+	}
+
+	iter = prop.find("v_align");
+	if (iter != iter_end)
+	{
+		if (iter->second == "top")
+		{
+			set_v_align(align_top);
+		} 
+		else if (iter->second == "bottom")
+		{
+			set_v_align(align_bottom);
+		}
+		else if (iter->second == "center")
+		{
+			set_v_align(align_v_center);
 		}
 	}
 

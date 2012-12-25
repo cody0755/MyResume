@@ -27,7 +27,7 @@ bool AlarmClock::start(Object *obj, SLOT_FUNC slot, int p, int r)
 		return false;
 	}
 	last_tick_time = WinOSAdapter::instance().get_tick_count();
-	period = max(p, 30);
+	period = max(p, 20);
 	repeat = r;
 	is_running = true;
 	connect(timer_timeout_signal, obj, slot);
