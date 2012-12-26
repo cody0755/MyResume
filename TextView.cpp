@@ -49,7 +49,7 @@ void TextView::parse_self(const PropMap& prop)
 	{
 		COLORREF clr;
 		sscanf(iter->second.c_str(), "%x", &clr);
-		text_clrs[draw_status_enable] = clr;
+		set_text_clr(draw_status_enable, clr);
 	}
 	iter = prop.find("font_disable_color");
 	if (iter != iter_end)
@@ -57,13 +57,14 @@ void TextView::parse_self(const PropMap& prop)
 		COLORREF clr;
 		sscanf(iter->second.c_str(), "%x", &clr);
 		text_clrs[draw_status_disable] = clr;
+		set_text_clr(draw_status_disable, clr);
 	}
 	iter = prop.find("font_pressed_color");
 	if (iter != iter_end)
 	{
 		COLORREF clr;
 		sscanf(iter->second.c_str(), "%x", &clr);
-		text_clrs[draw_status_pressed] = clr;
+		set_text_clr(draw_status_pressed, clr);
 	}
 	string font_family;
 	iter = prop.find("font_family");

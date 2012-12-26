@@ -54,6 +54,8 @@ public:
 	void set_parent(View *);
 	View* get_parent() const;
 
+	void set_id(int);
+	int get_id() const;
 	void set_h_align(unsigned char);
 	unsigned char get_h_align() const;
 	void set_v_align(unsigned char);

@@ -40,6 +40,16 @@ View* View::get_parent() const
 	return parent;
 }
 
+void View::set_id(int i)
+{
+	id = i;
+}
+
+int View::get_id() const
+{
+	return id;
+}
+
 void View::set_h_align(unsigned char a)
 {
 	if ((align & align_h_mask) == (a & align_h_mask))
@@ -416,72 +426,68 @@ void View::parse(const PropMap& prop)
 	iter = prop.find("x");
 	if (iter != iter_end)
 	{
-		x = atoi(iter->second.c_str());
+		set_x(atoi(iter->second.c_str()));
 	}
 	iter = prop.find("y");
 	if (iter != iter_end)
 	{
-		y = atoi(iter->second.c_str());
+		set_y(atoi(iter->second.c_str()));
+	}
+	iter = prop.find("relative_x");
+	if (iter != iter_end)
+	{
+		set_relative_x(atoi(iter->second.c_str()));
+	}
+	iter = prop.find("relative_y");
+	if (iter != iter_end)
+	{
+		set_relative_y(atoi(iter->second.c_str()));
 	}
 	iter = prop.find("width");
 	if (iter != iter_end)
 	{
-		cx = atoi(iter->second.c_str());
+		set_width(atoi(iter->second.c_str()));
 	}
 	iter = prop.find("height");
 	if (iter != iter_end)
 	{
-		cy = atoi(iter->second.c_str());
+		set_height(atoi(iter->second.c_str()));
 	}
 	iter = prop.find("id");
 	if (iter != iter_end)
 	{
-		id = atoi(iter->second.c_str());
+		set_id(atoi(iter->second.c_str()));
 	}
 	iter = prop.find("bg_enable_color");
 	if (iter != iter_end)
 	{
 		COLORREF clr;
 		sscanf(iter->second.c_str(), "%x", &clr);
-		bg_clrs[draw_status_enable] = clr;
+		set_background_clr(draw_status_enable, clr);
 	}
 	iter = prop.find("bg_disable_color");
 	if (iter != iter_end)
 	{
 		COLORREF clr;
 		sscanf(iter->second.c_str(), "%x", &clr);
-		bg_clrs[draw_status_disable] = clr;
+		set_background_clr(draw_status_disable, clr);
 	}
 	iter = prop.find("bg_pressed_color");
 	if (iter != iter_end)
 	{
 		COLORREF clr;
 		sscanf(iter->second.c_str(), "%x", &clr);
-		bg_clrs[draw_status_pressed] = clr;
+		set_background_clr(draw_status_pressed, clr);
 	}
 	iter = prop.find("visible");
 	if (iter != iter_end)
 	{
-		if (iter->second != "false")
-		{
-			status |= status_visible_mask;
-		} 
-		else
-		{
-			status &= ~status_visible_mask;
-		}
+		set_visible(iter->second != "false");
 	}
 	iter = prop.find("enable");
 	if (iter != iter_end)
 	{
-		if (iter->second != "false")
-		{
-			status |= status_enable_mask;
-		} 
-		else
-		{
-			status &= ~status_enable_mask;
-		}
+		set_enable(iter->second != "false");
 	}
 
 	iter = prop.find("h_align");

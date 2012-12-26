@@ -49,6 +49,7 @@ bool Animator::start()
 	start_time = WinOSAdapter::instance().get_tick_count();
 	fire_start_signal();
 	status = status_started;
+	update(0.0f);
 	return true;
 }
 
