@@ -1,7 +1,7 @@
 #ifndef MYRESUME_COVERACTIVITY_H
 #define MYRESUME_COVERACTIVITY_H
 
-#include "activity.h"
+#include "useless.h"
 #include "TranslateViewAnimator.h"
 
 class CoverActivity : public Activity

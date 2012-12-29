@@ -3,8 +3,8 @@
 
 #include "stdafx.h"
 #include "MyResume.h"
-#include "WinOSAdapter.h"
-#include "DirtyRectManager.h"
+#include "useless.h"
+#include "CoverActivity.h"
 
 #define MAX_LOADSTRING 100
 
@@ -100,7 +100,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 将实例句柄存储在全局变量中
 
-   SIZE window_size = WinOSAdapter::instance().get_window_size();
+   Size window_size = WinOSAdapter::instance().get_window_size();
    handle_main_window = CreateWindow(szWindowClass, szTitle, WS_POPUP | WS_VISIBLE,
       0, 0, window_size.cx, window_size.cy, NULL, NULL, hInstance, NULL);
 
@@ -133,7 +133,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			handle_main_window = hWnd;
 			SetTimer(handle_main_window, 1, 20, NULL);
-			WinOSAdapter::instance().startup();
+			Activity *a = new CoverActivity();
+			WinOSAdapter::instance().startup(a);
 		}
 		break;
 	case WM_LBUTTONDOWN:
@@ -151,9 +152,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
-			RECT rt = {0, 0, 
+			Rect rt(0, 0, 
 				WinOSAdapter::instance().get_window_size().cx,
-				WinOSAdapter::instance().get_window_size().cy};
+				WinOSAdapter::instance().get_window_size().cy);
 			DirtyRectManager::instance().union_rect(rt);
 			WinOSAdapter::instance().request_update();
 			EndPaint(hWnd, &ps);

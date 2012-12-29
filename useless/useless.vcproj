@@ -2,10 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="MyResume"
-	ProjectGUID="{D7470E1B-3D26-4784-AD49-4921BAD08F81}"
-	RootNamespace="MyResume"
-	Keyword="Win32Proj"
+	Name="useless"
+	ProjectGUID="{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}"
+	RootNamespace="useless"
 	>
 	<Platforms>
 		<Platform
@@ -19,7 +18,7 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="4"
 			CharacterSet="2"
 			>
 			<Tool
@@ -40,12 +39,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="useless"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;TIXML_USE_STL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -60,17 +57,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				LinkIncremental="2"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -82,12 +72,6 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -96,7 +80,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -116,9 +100,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
@@ -134,9 +116,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -176,32 +156,92 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\CoverActivity.cpp"
+				RelativePath=".\Activity.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyResume.cpp"
+				RelativePath=".\ActivityManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath=".\AlarmClock.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\AlarmClockManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Animator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ButtonView.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DCPainter_Impl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DirtyRectManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Event.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Font.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Interpolator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Object.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Painter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Painter_Impl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ResourceCreator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Slot.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TextView.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TranslateViewAnimator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\View.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ViewAnimator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WinOSAdapter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlParser.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -210,23 +250,99 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\CoverActivity.h"
+				RelativePath=".\Activity.h"
 				>
 			</File>
 			<File
-				RelativePath=".\IDDefine.h"
+				RelativePath=".\ActivityManager.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MyResume.h"
+				RelativePath=".\AlarmClock.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Resource.h"
+				RelativePath=".\AlarmClockManager.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath=".\Animator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ButtonView.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DCPainter_Impl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Define.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DirtyRectManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Event.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Font.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Interpolator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Painter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Painter_Impl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ResourceCreator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Slot.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TextView.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TranslateViewAnimator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MyResume\useless.h"
+				>
+			</File>
+			<File
+				RelativePath=".\View.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ViewAnimator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WinOSAdapter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlParser.h"
 				>
 			</File>
 		</Filter>
@@ -235,23 +351,35 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="tinyxml"
+			>
 			<File
-				RelativePath=".\MyResume.ico"
+				RelativePath=".\tinyxml\tinystr.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MyResume.rc"
+				RelativePath=".\tinyxml\tinystr.h"
 				>
 			</File>
 			<File
-				RelativePath=".\small.ico"
+				RelativePath=".\tinyxml\tinyxml.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinyxml.h"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinyxmlerror.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tinyxml\tinyxmlparser.cpp"
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

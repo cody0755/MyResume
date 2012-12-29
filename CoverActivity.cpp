@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "CoverActivity.h"
 #include "WinOSAdapter.h"
+#include "IDDefine.h"
 
 CoverActivity::CoverActivity(void)
 {}
@@ -17,8 +18,8 @@ void CoverActivity::on_create()
 	anim.set_period(300);
 	anim.set_interpolator(*ResourceCreator::instance().get_linear_interpolator());
 	anim.set_view(v);
-	POINT sp = {-200, 50};
-	POINT ep = {0, 50};
+	Point sp(-200, 50);
+	Point ep(0, 50);
 	anim.set_points(sp, ep);
 	anim.start();
 }

@@ -2,6 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyResume", "MyResume.vcproj", "{D7470E1B-3D26-4784-AD49-4921BAD08F81}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276} = {F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "useless", "useless\useless.vcproj", "{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +18,10 @@ Global
 		{D7470E1B-3D26-4784-AD49-4921BAD08F81}.Debug|Win32.Build.0 = Debug|Win32
 		{D7470E1B-3D26-4784-AD49-4921BAD08F81}.Release|Win32.ActiveCfg = Release|Win32
 		{D7470E1B-3D26-4784-AD49-4921BAD08F81}.Release|Win32.Build.0 = Release|Win32
+		{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}.Debug|Win32.Build.0 = Debug|Win32
+		{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}.Release|Win32.ActiveCfg = Release|Win32
+		{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

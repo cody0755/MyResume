@@ -29,7 +29,7 @@
 		id="2"
 		y="50"
 		width="200"
-		height="600">
+		height="550">
 		<text
 			id="3"
 			relative_y="0"
@@ -105,12 +105,12 @@
 		relative_x="220"
 		relative_y="50"
 		width="824"
-		height="600">
+		height="550">
 		<text
 			relative_x="0"
 			relative_y="0"
 			width="824"
-			height="120"
+			height="160"
 			font_width="10"
 			font_height="20"
 			font_family="ËÎÌå"
@@ -161,10 +161,30 @@
 					font_height="16"
 					font_family="ËÎÌå"
 					h_align="left"
-					text="¼®¹á:É½¶«ÁÙÒÊ"/>
+					text="ÐÇ×ù:Ä¦ôÉ×ù"/>
 				<text
 					relative_x="0"
 					relative_y="80"
+					width="744"
+					height="20"
+					font_width="10"
+					font_height="16"
+					font_family="ËÎÌå"
+					h_align="left"
+					text="ÑªÐÍ:A"/>
+				<text
+					relative_x="0"
+					relative_y="100"
+					width="744"
+					height="20"
+					font_width="10"
+					font_height="16"
+					font_family="ËÎÌå"
+					h_align="left"
+					text="¼®¹á:É½¶«ÁÙÒÊ"/>
+				<text
+					relative_x="0"
+					relative_y="120"
 					width="744"
 					height="20"
 					font_width="10"
@@ -176,7 +196,7 @@
 		</text>
 		<text
 			relative_x="0"
-			relative_y="125"
+			relative_y="165"
 			width="824"
 			height="80"
 			font_width="10"
@@ -224,7 +244,7 @@
 		</text>
 		<text
 			relative_x="0"
-			relative_y="210"
+			relative_y="250"
 			width="824"
 			height="100"
 			font_width="10"
