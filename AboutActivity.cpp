@@ -1,21 +1,21 @@
 #include "StdAfx.h"
-#include "PersonalActivity.h"
+#include "AboutActivity.h"
 #include "WinOSAdapter.h"
 #include "IDDefine.h"
+#include "PersonalActivity.h"
 #include "ExperienceActivity.h"
-#include "AboutActivity.h"
 
-PersonalActivity::PersonalActivity(void)
+AboutActivity::AboutActivity(void)
 {}
 
-PersonalActivity::~PersonalActivity(void)
+AboutActivity::~AboutActivity(void)
 {}
 
-void PersonalActivity::on_create()
+void AboutActivity::on_create()
 {
-	set_view("res/layout/personal.xml");
+	set_view("res/layout/about.xml");
 	View *v = find_view_by_id(id_quit);
-	v->connect(click_signal, this, (SLOT_FUNC)&PersonalActivity::on_quit);
+	v->connect(click_signal, this, (SLOT_FUNC)&AboutActivity::on_quit);
 	v = find_view_by_id(id_view_navi);
 	anim.set_period(300);
 	anim.set_interpolator(*ResourceCreator::instance().get_linear_interpolator());
@@ -26,27 +26,27 @@ void PersonalActivity::on_create()
 	anim.start();
 
 	v = find_view_by_id(id_bn_class_experience);
-	v->connect(click_signal, this, (SLOT_FUNC)&PersonalActivity::on_bn_class);
+	v->connect(click_signal, this, (SLOT_FUNC)&AboutActivity::on_bn_class);
 	v = find_view_by_id(id_bn_class_skill);
-	v->connect(click_signal, this, (SLOT_FUNC)&PersonalActivity::on_bn_class);
+	v->connect(click_signal, this, (SLOT_FUNC)&AboutActivity::on_bn_class);
 	v = find_view_by_id(id_bn_class_wanting);
-	v->connect(click_signal, this, (SLOT_FUNC)&PersonalActivity::on_bn_class);
-	v = find_view_by_id(id_bn_class_about);
-	v->connect(click_signal, this, (SLOT_FUNC)&PersonalActivity::on_bn_class);
+	v->connect(click_signal, this, (SLOT_FUNC)&AboutActivity::on_bn_class);
+	v = find_view_by_id(id_bn_class_personal);
+	v->connect(click_signal, this, (SLOT_FUNC)&AboutActivity::on_bn_class);
 }
 
-void PersonalActivity::on_destroy()
+void AboutActivity::on_destroy()
 {
 
 }
 
-bool PersonalActivity::on_quit(const Event&)
+bool AboutActivity::on_quit(const Event&)
 {
 	PostQuitMessage(0);
 	return true;
 }
 
-bool PersonalActivity::on_bn_class(const Event& e)
+bool AboutActivity::on_bn_class(const Event& e)
 {
 	Activity *a = NULL;
 	View *v = (View*)e.get_signalor();
@@ -59,8 +59,8 @@ bool PersonalActivity::on_bn_class(const Event& e)
 		break;
 	case id_bn_class_wanting:
 		break;
-	case id_bn_class_about:
-		a = new AboutActivity;
+	case id_bn_class_personal:
+		a = new PersonalActivity;
 		break;
 	}
 	push(a);

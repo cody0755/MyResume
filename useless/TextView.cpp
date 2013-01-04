@@ -41,7 +41,7 @@ void TextView::parse_self(const PropMap& prop)
 	iter = prop.find("text");
 	if (iter != iter_end)
 	{
-		text = iter->second;
+		set_text(iter->second);
 	}
 	iter = prop.find("font_enable_color");
 	if (iter != iter_end)
@@ -237,7 +237,7 @@ void TextView::draw_text(Painter& painter, const vector<string>& lines, colorref
 			pt.x = x + (cx - ts.cx) / 2;
 			break;
 		}
-		painter.draw_text(text, pt, *font, clr);
+		painter.draw_text(lines[i], pt, *font, clr);
 		pt.y += (font_height + space);
 	}
 }

@@ -139,14 +139,8 @@ public:
 			*this = rhs;
 			return;
 		}
-		if ((rhs.x + rhs.cx) > (x + cx))
-		{
-			cx = rhs.x + rhs.cx - x;
-		}
-		if ((rhs.y + rhs.cy) > (y + cy))
-		{
-			cy = rhs.y + rhs.cy - y;
-		}
+		cx = max((rhs.x + rhs.cx), (x + cx)) - min(x, rhs.x);
+		cy = max((rhs.y + rhs.cy), (y + cy)) - min(y, rhs.y);
 		x = min(x, rhs.x);
 		y = min(y, rhs.y);
 	}
