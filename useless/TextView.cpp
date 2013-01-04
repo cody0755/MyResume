@@ -30,8 +30,8 @@ void TextView::draw(Painter &painter)
 	{
 		text_clr = iter->second;
 	}
-	Point text_origin = get_text_origin();
-	painter.draw_text(text, text_origin, *font, text_clr);
+
+	draw_text(painter, get_text_lines(), text_clr);
 }
 
 void TextView::parse_self(const PropMap& prop)
@@ -149,63 +149,95 @@ bool TextView::get_text_clr(unsigned long s, colorref& c) const
 	return false;
 }
 
-int TextView::get_text_count() const
+vector<string> TextView::get_text_lines() const
 {
-	if (text.empty())
+	vector<string> lines;
+	string temp = text;
+	size_t pos = 0;
+	for (;;)
 	{
-		return 0;
+		size_t pos = temp.find('\n');
+		if (pos != string::npos)
+		{
+			lines.push_back(temp.substr(0, pos));
+			if (pos == temp.size() - 1)
+			{
+				lines.push_back("");
+				break;
+			}
+			temp = temp.substr(pos+1);
+		} 
+		else
+		{
+			lines.push_back(temp);
+			break;
+		}
 	}
-	return text.size();
+	return lines;
 }
 
-Size TextView::get_text_size() const
+int TextView::get_text_count(const string& rhs) const
+{
+	return (int)rhs.size();
+}
+
+Size TextView::get_text_size(const string& rhs) const
 {
 	Size s;
-	if (text.empty() || !font || !font->valid())
+	if (rhs.empty() || !font || !font->valid())
 	{
 		return s;
 	}
 	Size fs = font->get_size();
-	s.cx = fs.cx * static_cast<LONG>(get_text_count());
+	s.cx = fs.cx * static_cast<short>(get_text_count(rhs));
 	s.cy = fs.cy;
 	return s;
 }
 
-Point TextView::get_text_origin() const
+void TextView::draw_text(Painter& painter, const vector<string>& lines, colorref clr) const
 {
 	Point pt;
-	if (cx <= 0 || cy <= 0)
+	if (cx <= 0 || cy <= 0 || lines.empty()|| !font || !font->valid())
 	{
-		return pt;
+		return;
 	}
-	Size ts = get_text_size();
-	if (ts.cx <= 0 || ts.cy <= 0)
-	{
-		return pt;
-	}
-	switch (get_h_align())
-	{
-	case align_left:
-		pt.x = x;
-		break;
-	case align_right:
-		pt.x = x + (cx - ts.cx);
-		break;
-	case align_h_center:
-		pt.x = x + (cx - ts.cx) / 2;
-		break;
-	}
+
+	short space = 0;
+	short font_height = font->get_size().cy;
+	short height = lines.size() * font_height + (lines.size() - 1) * space;
 	switch (get_v_align())
 	{
 	case align_top:
 		pt.y = y;
 		break;
 	case align_bottom:
-		pt.y = y + (cy - ts.cy);
+		pt.y = y + (cy - height);
 		break;
 	case align_v_center:
-		pt.y = y + (cy - ts.cy) / 2;
+		pt.y = y + (cy - height) / 2;
 		break;
 	}
-	return pt;
+	for (size_t i=0; i<lines.size(); ++i)
+	{
+		Size ts = get_text_size(lines[i]);
+		if (ts.cx <= 0 || ts.cy <= 0)
+		{
+			pt.y += (font_height + space);
+			continue;
+		}
+		switch (get_h_align())
+		{
+		case align_left:
+			pt.x = x;
+			break;
+		case align_right:
+			pt.x = x + (cx - ts.cx);
+			break;
+		case align_h_center:
+			pt.x = x + (cx - ts.cx) / 2;
+			break;
+		}
+		painter.draw_text(text, pt, *font, clr);
+		pt.y += (font_height + space);
+	}
 }

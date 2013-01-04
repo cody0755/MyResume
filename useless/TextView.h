@@ -20,9 +20,10 @@ public:
 	const StatusColorMap& get_text_clr() const;
 	bool get_text_clr(unsigned long, colorref&) const;
 private:
-	int get_text_count() const;
-	Size get_text_size() const;
-	Point get_text_origin() const;
+	vector<string> get_text_lines() const;
+	int get_text_count(const string&) const;
+	Size get_text_size(const string&) const;
+	void draw_text(Painter&, const vector<string>&, colorref) const;
 private:
 	string text;
 	Font *font;
