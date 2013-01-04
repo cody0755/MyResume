@@ -31,17 +31,19 @@
 		width="200"
 		height="550"
 		bg_disable_color="373737">
-		<text
+		<button
 			id="3"
 			relative_y="0"
 			width="200"
 			height="40"
-			bg_disable_color="3A3AFF"
+			bg_enable_color="C0DBE7"
+			bg_pressed_color="A1BCC8"
 			font_width="20"
 			font_height="30"
 			font_family="宋体"
-			font_enable_color="FFFFFF"
-			h_align="right"
+			font_enable_color="000000"
+			font_pressed_color="000000"
+			h_align="left"
 			text="个人信息"/>
 		<button
 			id="4"
@@ -57,19 +59,16 @@
 			font_pressed_color="000000"
 			h_align="left"
 			text="工作经历"/>
-		<button
+		<text
 			id="5"
 			relative_y="82"
 			width="200"
 			height="40"
-			bg_enable_color="C0DBE7"
-			bg_pressed_color="A1BCC8"
+			bg_disable_color="3A3AFF"
 			font_width="20"
 			font_height="30"
 			font_family="宋体"
-			font_enable_color="000000"
-			font_pressed_color="000000"
-			h_align="left"
+			h_align="right"
 			text="技能掌握"/>
 		<button
 			id="6"

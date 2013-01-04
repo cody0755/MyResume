@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "MyResume.h"
 #include "useless.h"
-#include "CoverActivity.h"
+#include "PersonalActivity.h"
 
 #define MAX_LOADSTRING 100
 
@@ -133,7 +133,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			handle_main_window = hWnd;
 			SetTimer(handle_main_window, 1, 20, NULL);
-			Activity *a = new CoverActivity();
+			Activity *a = new PersonalActivity();
 			WinOSAdapter::instance().startup(a);
 		}
 		break;

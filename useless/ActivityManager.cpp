@@ -27,6 +27,8 @@ void ActivityManager::push(Activity *rhs)
 	{
 		return;
 	}
+	pop();
+
 	activities.push_back(rhs);
 
 	rhs->on_create();
