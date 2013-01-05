@@ -3,6 +3,8 @@
 #include "WinOSAdapter.h"
 #include "IDDefine.h"
 #include "ExperienceActivity.h"
+#include "SkillActivity.h"
+#include "WantingActivity.h"
 #include "AboutActivity.h"
 
 PersonalActivity::PersonalActivity(void)
@@ -56,8 +58,10 @@ bool PersonalActivity::on_bn_class(const Event& e)
 		a = new ExperienceActivity;
 		break;
 	case id_bn_class_skill:
+		a = new SkillActivity;
 		break;
 	case id_bn_class_wanting:
+		a = new WantingActivity;
 		break;
 	case id_bn_class_about:
 		a = new AboutActivity;
