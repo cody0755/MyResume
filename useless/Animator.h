@@ -5,7 +5,7 @@
 #include "AlarmClock.h"
 #include "Interpolator.h"
 
-class Animator : public Object
+class Animator : public Object, private noncopyable
 {
 public:
 	Animator(void);
@@ -38,10 +38,6 @@ protected:
 	void fire_start_signal();
 	void fire_update_signal(int tick);
 	void fire_stop_signal();
-
-private:
-	Animator(const Animator&);
-	Animator& operator=(const Animator&);
 
 protected:
 	int status;

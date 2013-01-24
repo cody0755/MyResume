@@ -1,7 +1,9 @@
 #ifndef USELESS_INTERPOLATOR_H
 #define USELESS_INTERPOLATOR_H
 
-class Interpolator
+#include "noncopyable.h"
+
+class Interpolator : private noncopyable
 {
 public:
 	virtual float calc(float) = 0;

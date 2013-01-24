@@ -6,12 +6,13 @@
 #include "Define.h"
 #include "DirtyRectManager.h"
 #include "XmlParser.h"
+#include "noncopyable.h"
 
 class Painter;
 class View;
 typedef vector<View*> ChildViews;
 typedef map<unsigned long, colorref> StatusColorMap;
-class View : public Object
+class View : public Object, private noncopyable
 {
 protected:
 	enum
@@ -104,10 +105,6 @@ public:
 protected:
 	//自定义各个状态的优先级
 	virtual unsigned long get_draw_status() const;
-
-private:
-	View(const View&);
-	View& operator=(const View&);
 
 protected:
 	ChildViews childs;

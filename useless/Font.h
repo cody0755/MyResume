@@ -3,8 +3,9 @@
 
 #include <Windows.h>
 #include "Painter.h"
+#include "noncopyable.h"
 
-class Font
+class Font : private noncopyable
 {
 public:
 	Font();
@@ -18,10 +19,6 @@ public:
 
 	bool operator==(const Font&);
 	bool equal(const Size& s, const string&) const;
-
-private:
-	Font(const Font&);
-	Font& operator=(const Font&);
 
 protected:
 	Size size;
