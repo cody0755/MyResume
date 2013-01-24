@@ -286,6 +286,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\noncopyable.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Object.h"
 				>
 			</File>
@@ -299,6 +303,14 @@
 			</File>
 			<File
 				RelativePath=".\ResourceCreator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\scoped_ptr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\shared_ptr.h"
 				>
 			</File>
 			<File

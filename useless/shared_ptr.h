@@ -5,7 +5,7 @@ template <class T>
 class shared_ptr
 {
 public:
-	shared_ptr(const T *o = NULL)
+	shared_ptr(T *o = NULL)
 	: obj(o)
 	{
 		count = new size_t;
@@ -20,7 +20,7 @@ public:
 	}
 
 	template <class Y>
-	shared_ptr(const Y *o)
+	shared_ptr(Y *o)
 	: obj(o)
 	{
 		count = new size_t;
@@ -44,7 +44,7 @@ public:
 
 	shared_ptr& operator=(const shared_ptr &rhs)
 	{
-		if (this == &rhs || obj == rhs.obj)
+		if (obj == rhs.obj)
 		{
 			return *this;
 		}
@@ -53,6 +53,7 @@ public:
 		obj = rhs.obj;
 		count = rhs.count;
 		++*count;
+		return *this;
 	}
 
 	T* operator->() const
@@ -66,6 +67,9 @@ public:
 	}
 
 	bool valid() const {return obj != NULL;}
+
+	T* get() {return obj;}
+	const T* get() const {return obj;}
 
 private:
 	void release()
@@ -84,5 +88,17 @@ private:
 	T *obj;
 	size_t *count;
 };
+
+template<class T>
+bool operator==(const shared_ptr<T> &lhs, const shared_ptr<T> &rhs)
+{
+	return lhs.get() == rhs.get();
+}
+
+template<class T>
+bool operator!=(const shared_ptr<T> &lhs, const shared_ptr<T> &rhs)
+{
+	return !(lhs == rhs);
+}
 
 #endif
