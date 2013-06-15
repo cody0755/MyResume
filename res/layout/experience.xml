@@ -106,16 +106,35 @@
 		width="804"
 		height="550">
 		<text
+			border_size="1"
+			border_color="FF0000"
 			relative_x="0"
 			relative_y="0"
 			width="804"
-			height="550"
+			height="100"
 			font_width="10"
 			font_height="16"
 			font_family="宋体"
 			h_align="left"
 			v_align="top"
-			text="2009.5——今，沈阳美行科技有限公司
+			text="2013.3——今，广州铁人网络技术有限公司
+			
+			主要项目、经历：
+			
+				某互联网产品客户端开发中"/>
+		<text
+			border_size="1"
+			border_color="00FF00"
+			relative_x="0"
+			relative_y="120"
+			width="804"
+			height="450"
+			font_width="10"
+			font_height="16"
+			font_family="宋体"
+			h_align="left"
+			v_align="top"
+			text="2009.5——2013.3，沈阳美行科技有限公司
 			
 			主要项目、经历：
 			

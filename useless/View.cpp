@@ -11,6 +11,8 @@ View::View(View *p)
 , id(0)
 , status(status_visible | draw_status_disable)
 , align((align_h_mask & align_h_center) | (align_v_mask & align_v_center))
+, border_color(0xFFFFFF)
+, border_size(0)
 {}
 
 View::~View(void)
@@ -49,7 +51,7 @@ int View::get_id() const
 	return id;
 }
 
-void View::set_h_align(unsigned char a)
+void View::set_h_align(byte a)
 {
 	if ((align & align_h_mask) == (a & align_h_mask))
 	{
@@ -59,12 +61,12 @@ void View::set_h_align(unsigned char a)
 	invalidate();
 }
 
-unsigned char View::get_h_align() const
+byte View::get_h_align() const
 {
 	return align & align_h_mask;
 }
 
-void View::set_v_align(unsigned char a)
+void View::set_v_align(byte a)
 {
 	if ((align & align_v_mask) == (a & align_v_mask))
 	{
@@ -74,7 +76,7 @@ void View::set_v_align(unsigned char a)
 	invalidate();
 }
 
-unsigned char View::get_v_align() const
+byte View::get_v_align() const
 {
 	return align & align_v_mask;
 }
@@ -145,7 +147,7 @@ void View::set_pressed(bool pressed)
 	invalidate();
 }
 
-void View::set_background_clr(unsigned long s, colorref clr)
+void View::set_background_clr(ulong s, colorref clr)
 {
 	bg_clrs[s] = clr;
 	invalidate();
@@ -156,7 +158,7 @@ const StatusColorMap& View::get_background_clr() const
 	return bg_clrs;
 }
 
-bool View::get_background_clr(unsigned long s, colorref& c) const
+bool View::get_background_clr(ulong s, colorref& c) const
 {
 	StatusColorMap::const_iterator iter = bg_clrs.find(s);
 	if (iter != bg_clrs.end())
@@ -264,6 +266,34 @@ void View::set_rect(const Rect& rt)
 	set_width(rt.cx);
 	set_height(rt.cy);
 	invalidate();
+}
+
+void View::set_border_color(colorref clr)
+{
+	if (border_color != clr)
+	{
+		border_color = clr;
+		invalidate();
+	}
+}
+
+colorref View::get_border_color() const
+{
+	return border_color;
+}
+
+void View::set_border_size(byte size)
+{
+	if (border_size != size)
+	{
+		border_size = size;
+		invalidate();
+	}
+}
+
+byte View::get_border_size() const
+{
+	return border_size;
 }
 
 short View::get_relative_x() const
@@ -389,6 +419,11 @@ void View::draw(Painter &painter)
 	if (iter != bg_clrs.end())
 	{
 		painter.draw_color(iter->second, get_rect());
+	}
+
+	if (border_size > 0)
+	{
+		painter.draw_rect(get_rect(), border_size, border_color);
 	}
 	
 	View *v;
@@ -522,6 +557,19 @@ void View::parse(const PropMap& prop)
 		}
 	}
 
+	iter = prop.find("border_size");
+	if (iter != iter_end)
+	{
+		set_border_size(atoi(iter->second.c_str()));
+	}
+	iter = prop.find("border_color");
+	if (iter != iter_end)
+	{
+		colorref clr;
+		sscanf(iter->second.c_str(), "%x", &clr);
+		set_border_color(clr);
+	}
+
 	parse_self(prop);
 }
 
@@ -550,9 +598,9 @@ View* View::find_view_by_id(int rhs)
 	return NULL;
 }
 
-unsigned long View::get_draw_status() const
+ulong View::get_draw_status() const
 {
-	unsigned long status_mask = draw_status_enable;
+	ulong status_mask = draw_status_enable;
 	if (is_pressed())
 	{
 		status_mask = draw_status_pressed;

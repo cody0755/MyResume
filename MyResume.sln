@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyResume", "MyResume.vcproj", "{D7470E1B-3D26-4784-AD49-4921BAD08F81}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F56826D9-BB32-4D06-9CD6-3DFA2D9BD276} = {F56826D9-BB32-4D06-9CD6-3DFA2D9BD276}

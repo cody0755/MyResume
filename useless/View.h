@@ -11,7 +11,7 @@
 class Painter;
 class View;
 typedef vector<View*> ChildViews;
-typedef map<unsigned long, colorref> StatusColorMap;
+typedef map<ulong, colorref> StatusColorMap;
 class View : public Object, private noncopyable
 {
 protected:
@@ -57,19 +57,19 @@ public:
 
 	void set_id(int);
 	int get_id() const;
-	void set_h_align(unsigned char);
-	unsigned char get_h_align() const;
-	void set_v_align(unsigned char);
-	unsigned char get_v_align() const;
+	void set_h_align(byte);
+	byte get_h_align() const;
+	void set_v_align(byte);
+	byte get_v_align() const;
 	bool is_visible() const;
 	void set_visible(bool visible);
 	bool is_enable() const;
 	void set_enable(bool enable);
 	bool is_pressed() const;
 	void set_pressed(bool pressed);
-	void set_background_clr(unsigned long, colorref);
+	void set_background_clr(ulong, colorref);
 	const StatusColorMap& get_background_clr() const;
-	bool get_background_clr(unsigned long, colorref&) const;
+	bool get_background_clr(ulong, colorref&) const;
 	//获得或设置View的绝对坐标（以窗口左上为原点）
 	short get_x() const;
 	short get_y() const;
@@ -81,6 +81,10 @@ public:
 	void set_width(short rhs);
 	void set_height(short rhs);
 	void set_rect(const Rect& rt);
+	void set_border_color(colorref);
+	colorref get_border_color() const;
+	void set_border_size(byte);
+	byte get_border_size() const;
 	//再提供一套设置View相对于父View的坐标的接口
 	short get_relative_x() const;
 	short get_relative_y() const;
@@ -104,7 +108,7 @@ public:
 
 protected:
 	//自定义各个状态的优先级
-	virtual unsigned long get_draw_status() const;
+	virtual ulong get_draw_status() const;
 
 protected:
 	ChildViews childs;
@@ -116,9 +120,10 @@ protected:
 	short cx;
 	short cy;
 	int id;
-	unsigned char align;
-
-	unsigned long status;
+	byte align;
+	byte border_size;
+	colorref border_color;
+	ulong status;
 	StatusColorMap bg_clrs;
 };
 

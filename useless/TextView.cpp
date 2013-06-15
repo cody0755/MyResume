@@ -127,7 +127,7 @@ const Font& TextView::get_font() const
 	return *font;
 }
 
-void TextView::set_text_clr(unsigned long s, colorref c)
+void TextView::set_text_clr(ulong s, colorref c)
 {
 	text_clrs[s] = c;
 	invalidate();
@@ -138,7 +138,7 @@ const StatusColorMap& TextView::get_text_clr() const
 	return text_clrs;
 }
 
-bool TextView::get_text_clr(unsigned long s, colorref& c) const
+bool TextView::get_text_clr(ulong s, colorref& c) const
 {
 	StatusColorMap::const_iterator iter = text_clrs.find(s);
 	if (iter != text_clrs.end())

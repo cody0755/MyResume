@@ -9,6 +9,7 @@ typedef unsigned int uint;
 typedef unsigned long ulong;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
+typedef uchar byte;
 typedef ulong colorref;
 
 class Point

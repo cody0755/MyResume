@@ -16,9 +16,9 @@ public:
 	void set_font(const Font&);
 	Font& get_font();
 	const Font& get_font() const;
-	void set_text_clr(unsigned long, colorref);
+	void set_text_clr(ulong, colorref);
 	const StatusColorMap& get_text_clr() const;
-	bool get_text_clr(unsigned long, colorref&) const;
+	bool get_text_clr(ulong, colorref&) const;
 private:
 	vector<string> get_text_lines() const;
 	int get_text_count(const string&) const;

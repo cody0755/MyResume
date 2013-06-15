@@ -73,14 +73,24 @@ void DCPainter_Impl::draw_text(const string& text, const Point& origin, const Fo
 	SelectObject(memory_dc, old_font);
 }
 
-void DCPainter_Impl::draw_rect(const Rect& rt)
+void DCPainter_Impl::draw_rect(const Rect& rt, byte size, colorref clr)
 {
 	if (!rt.valid()
-		|| !memory_dc)
+		|| !memory_dc
+		|| size <= 0)
 	{
 		return;
 	}
-	Rectangle(memory_dc, rt.x, rt.y, rt.x + rt.cx, rt.y + rt.cy);
+	HPEN pen = CreatePen(PS_SOLID, size, clr);
+	if (!pen)
+	{
+		return;
+	}
+	HPEN old_pen = static_cast<HPEN>(SelectObject(memory_dc, static_cast<HGDIOBJ>(pen)));
+	POINT pt[] = {{rt.x, rt.y}, {rt.x + rt.cx, rt.y}, {rt.x + rt.cx, rt.y + rt.cy}, {rt.x, rt.y + rt.cy}, {rt.x, rt.y}};
+	Polyline(memory_dc, pt, sizeof(pt) / sizeof(POINT));
+	SelectObject(memory_dc, old_pen);
+	DeleteObject(pen);
 }
 
 void DCPainter_Impl::draw_color(colorref clr, const Rect& rt)

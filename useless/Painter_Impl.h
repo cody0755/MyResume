@@ -12,7 +12,7 @@ public:
 	virtual bool valid() const = 0;
 	virtual bool init() = 0;
 	virtual void draw_text(const string&, const Point&, const Font&, colorref) = 0;
-	virtual void draw_rect(const Rect&) = 0;
+	virtual void draw_rect(const Rect&, byte size, colorref clr) = 0;
 	virtual void draw_color(colorref, const Rect&) = 0;
 	virtual void update() = 0;
 	virtual void invalidate(const Rect&) = 0;
